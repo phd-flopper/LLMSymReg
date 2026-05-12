@@ -1,0 +1,50 @@
+We are performing a symbolic regression analysis of some dataset. Our goal is to uncover the governing function for this dataset. This function should be simple and physically meaningful. We are speficially studying the field of {field}.
+
+Here are the points of the dataset `X`: {X}
+They represent these `variables`: {vars_}
+Points are sampled from some distribution in range {dom}. 
+Here are the respective values `y`: {y}
+These points represent the `target` function of the dataset. If `X` is passed into `target` as input, the output is `y`. 
+
+`variables` have corresponding units `x_units`: {X_units} and the target function is measured in `y_units` {y_units}. `y_units` is a python dictionary with a form of 'Unit name': ['SI units'] and `x_units` is a list of such dictionaries. Any proposed composition of `variables` should equal `y_units`. 
+
+We are using PySR as the generator of candidate expressions.
+
+Please analyze the given dataset. Based on your analysis and domain expertise and our educated ideas of target function, please propose constraints to best guide the search. 
+
+Here are the default parameters of PySR generator: {params}.
+Carefully examine the structure type, since you can only edit values.
+I need you to propose correct values for only these parameters of the PySR model.
+Keep in mind that applying operators to physical quantities (i.e. variables that are NOT dimensionless or a composition of some variables that ends up having units) changes dimension. Therefore, it is physically meaningless to apply unary operators to physical quantities.
+
+Your output MUST be a single, valid JSON object containing the aforementioned keys and their respective correct values. Be very mindful with proposed constraints, as once you propose them, we cannot change them.
+You should only generate one instance of the JSON object.
+Here is a small example:
+### JSON Output Structure:
+```json
+{{
+  "maxsize": your proposed integer value here,
+  "maxdepth" your proposed integer value here,
+  "binary_operators": [your proposed list here],
+  "unary_operators": [your proposed list here]
+}}
+
+"maxsize" specifies the maximum complexity of the equation. You should propoose an integer value STRICTLY above 7 and lower than 20.
+
+"maxdepth" specifies the maximum depth of the equation's expression tree. 12 is a good value unless your domain knowledge suggests that the equation is very complex. "maxdepth" also SHOULD NEVER BE HIGHER than "maxsize" and LOWER than 3.
+
+"binary_operators" is a list specifying available binary operators. Your possible output is any non-empty subset of ['+', '-', '*', '/', '^']. Consider removing operators if you think they are not needed. Remember, that the list of operators SHOULD NEVER be empty and SHOULD NEVER exceed the possible output subset. NEVER REMOVE A BINARY OPERATOR IF YOU THINK THE FUNCTION CONTAINS IT.
+
+"unary_operators" is a list specifying available unary operators. Your possible output is any (including empty this time) subset of ['sin', 'cos', 'log', 'exp', 'sqrt']. Consider removing any unary operators if you think they are not needed. Empty list [] is a possible output in some cases. This list SHOULD NEVER exceed the possible output. Do not introudce new unlisted unary operators. NEVER REMOVE AN UNARY OPERATOR IF YOU THINK THE FUNCTION CONTAINS IT.
+
+After your JSON object output, I want you to generate reasonable constraints for the task in the textual form. These constraints should follow from our field of study and not contradict the parameters that you have proposed. Also, if `x_units` is not None, include your analysis of this too. Your constraints should also state that each `variable` must be used at least once. You should write your proposed constraints and reasoning for them after first writing ### CONSTRAINTS.
+
+Finally, on the last line of your response I need you to propose a function ansatz that we are looking for. It should feature some reasonable composition of `variables` that could capture the dependency between `dataset` and `target` and that doesn't violate your proposed constraints.
+This ansatz must strictly follow dimensionality logic. Provide your reasoning for the ansatz and then output ansatz on the very last line of your response. The last line should only contain the equation we are looking for. Write it down using the operators you have chosen and these variables: {vars_}
+
+THE SPECIFIC EXPRESSION SHOULD ONLY CONTAIN VARIABLES FROM {vars_} AND OPERATORS. IT SHOULD NOT CONTAIN ANY OTHER LETTERS. IT SHOULD NOT CONTAIN UNITS.
+LAST LINE SHOULD PRECISELY HAVE THE SPECIFIC FORM OF A FUNCTION ENCLOSED IN ['']
+MAKE SURE THAT THE LAST LINE OF YOUR RESPONSE CONSISTS OF ONLY THE PROPOSED ANSATZ.
+Here is an example:
+
+['function']

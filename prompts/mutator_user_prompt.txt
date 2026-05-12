@@ -1,0 +1,31 @@
+We are performing a symbolic regression analysis of some dataset. Our goal is to uncover the governing function for this dataset. This function should be simple and meaningful.
+
+Your colleague "Planner" proposed these `constraints`: {constraints}.
+As part of `constraints`, your colleague "Planner" also proposed this functional form: {template}.
+Your colleague "Critic" proposed these `ideas`: {ideas}.
+Please consider the following equations (We will refer to them as `array`): {eqs}.
+
+Carefully investigate each one of them.
+Based on your analyzis of `array` and proposed `constraints` and `ideas`, output a list of enhanced equations. Make sure to only output ONE list of equations and nothing more. You should not output a list which length is higher than that of `array`. Preferably, your output list should contain only the best equations.
+
+By enhancing equations, we first of all assume simplification in terms of equation's length. For example, rounding values like 0.99999817 to 1.0 and removing unnecessary operators and extra variables and numbers. However, you should carefully take into account `constraints` and `ideas`.
+
+Here is the list of available operators: {operators}
+You have access to these variables: {vars_}
+When enhancing equations, make sure that each of your proposed equations features EVERY variable at least once. Make sure that only available operators are present in equations.
+
+Let's consider an example.
+
+Suppose, we have ``array`` ['log(x0)*sin(x1)', ' sin(sqrt(x1/x0))^0.7361032', ' x1^0.7721134', 2*sin(x0)*cos(x1)].
+Suppose, we have ``constraints`` that, among other valueable information, specify that all variables should be present in an equation.
+Suppose, we have ``ideas`` that cosine function is a promising direction and that logarithm is not.
+
+Based on all of the above, in this spefic example, your proposal could be to 1) in the first equation replace log with some available unary operator, since ``ideas`` state that logarithm is not a promising direction; 2) discard the second equation, since it is too complex; 3) in the third equation replace the constant with the closest integer and introduce x0 in a simple way; 4) the fourth equation is good as is, because it is short, simple, contains all necessary variables at least once and doesn't violate ``ideas`` and ``constraints``.
+
+Hence your output in above situation could be:
+
+['cos(x0)*sin(x1)', 'x0 + x1^1', '2*sin(x0)*cos(x1)']
+
+Notice that the length of this example enhanced list is smaller than the original length, which is fine. Discarding long complex equations is perfectly fine.
+
+MAKE SURE NOT TO OUTPUT ANYTHING AFTER YOU HAVE WRITTEN THE OUTPUT LIST. 
