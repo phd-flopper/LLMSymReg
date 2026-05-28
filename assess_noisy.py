@@ -12,7 +12,7 @@ from sklearn.metrics import r2_score
 from datasets.nguyen_dataset import NGUYEN_EQUATIONS
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
-from trainers.base import Trainer
+from trainers.noisy import Trainer
 import sympy
 
 def run_all(run_name):
@@ -20,7 +20,7 @@ def run_all(run_name):
     run_path = os.path.join(config['run']['run_dir'], run_name)
     os.makedirs(run_path, exist_ok=True)
     
-    sample_sizes = config['baseline']['sample_sizes']
+    levels = config['noisy']['levels']
     
     logging.basicConfig(
         level=logging.INFO,
@@ -39,29 +39,16 @@ def run_all(run_name):
     run_logger.info('Initiating Nguyen Dataset runs.')
     st = time.time()
     i_size = 0
-    for size in tqdm(sample_sizes):
+    for level in tqdm(levels):
         sst = time.time()
-        run_logger.info(f'Initiating Nguyen_{size} run.')
-        lib = {
-                   1:[-1, 1, [size + config['val']['size'], 1]],
-                   2:[-1, 1, [size + config['val']['size'], 1]],
-                   3:[-1, 1, [size + config['val']['size'], 1]],
-                   4:[-1, 1, [size + config['val']['size'], 1]],
-                   5:[-1, 1, [size + config['val']['size'], 1]],
-                   6:[-1, 1, [size + config['val']['size'], 1]],
-                   7:[0, 2, [size + config['val']['size'], 1]],
-                   8:[0, 4, [size + config['val']['size'], 1]],
-                   9:[0, 1, [size + config['val']['size'], 2]],
-                   10:[0, 1, [size + config['val']['size'], 2]],
-                   11:[0, 1, [size + config['val']['size'], 2]],
-                   12:[0, 1, [size + config['val']['size'], 2]],
-        }
+        run_logger.info(f'Initiating Nguyen with noise level {int(level * 100)} run.')
+        lib = dict(config['noisy']['lib'])
         idx = 1
         n_dicta = {'seed':int(time.time()), 'lib':lib}
         n_train_loader = get_dataloader(NguyenDataset, n_dicta)
-        exp_logger = logging.getLogger(f'{run_name}_Nguyen_{size}')
+        exp_logger = logging.getLogger(f'{run_name}_Nguyen_{int(level * 100)}')
         exp_logger.setLevel(logging.INFO)
-        nguyen_dir = f"{run_path}\DNguyen\{size}"
+        nguyen_dir = f"{run_path}\DNguyen\{int(level * 100)}"
         os.makedirs(nguyen_dir, exist_ok=True)
         ffh = logging.FileHandler(f"{nguyen_dir}\log.txt")
         exp_logger.addHandler(ffh)
@@ -80,44 +67,64 @@ def run_all(run_name):
             X = npx
             y = npy
             
-            trainer = Trainer(config, X, y, eq, f'{size}_{eq}', dom=config['experiments']['dom'][idx - 1], size=size)
+            noise = np.random.normal(loc=0.0, scale=level*np.abs(y[:20, 0]), size=20)
+            
+            for i in range(X.shape[1]): 
+                X[:20, i] += noise
+
+            y[:20, 0] += noise
+            
+            trainer = Trainer(config, X, y, eq, f'{int(level * 100)}_{eq}', dom=config['experiments']['dom'][idx - 1])
             trainer.run()
             test_X = n_train_loader.dataset.rng.uniform(*lib[idx])
             if idx < 9:
                 test_X = [test_X[:, 0]]
             else:
                 test_X = test_X[:, 0], test_X[:, 1]
-            score = max(trainer.scores)
+            try:
+                score = max(trainer.scores)
+            except:
+                score = 0
             scores.append(score)
             out_dom = lib[idx]
             out_dom[0] = out_dom[0] * 10
             out_dom[1] = out_dom[1] * 10
             out_test_X = n_train_loader.dataset.rng.uniform(*out_dom)
-            out_y_pred = trainer.generator.predict(out_test_X)
-            if idx < 9:
-                out_test_X = [out_test_X[:, 0]]
-            else:
-                out_test_X = out_test_X[:, 0], out_test_X[:, 1]
-            out_test_y = NGUYEN_EQUATIONS[eq](*out_test_X)
-            try:
-                out_score = r2_score(out_test_y, out_y_pred)
-            except:
-                out_score = 0
-            for pair in trainer.mutator_hof:
-                try: 
-                    func = pair['equation']
-                    func = func.replace("^", "**")
-                    function = sympy.lambdify(trainer.vars_, func)
-                    function_score = r2_score(out_test_y, function(*out_test_X))
-                    out_score = max(out_score, function_score)
+            if trainer.best_generator is not None:
+                out_y_pred = trainer.best_generator.predict(out_test_X)
+                if idx < 9:
+                    out_test_X = [out_test_X[:, 0]]
+                else:
+                    out_test_X = out_test_X[:, 0], out_test_X[:, 1]
+                out_test_y = NGUYEN_EQUATIONS[eq](*out_test_X)
+                try:
+                    out_score = r2_score(out_test_y, out_y_pred)
                 except:
-                    continue
-            out_scores.append(out_score)
-            idx += 1
-            eq_et = time.time()
-            equations[i_size][eq].append(trainer.generator.sympy())
-            exp_logger.info(f'Proposed equation for {eq}:\n {trainer.generator.sympy()} \n in {eq_et - eq_st} seconds.')
-            exp_logger.info(f'R^2 score: {score}')
+                    out_score = 0
+                if np.isnan(out_score):
+                    out_score = 0
+                for pair in trainer.mutator_hof:
+                    try: 
+                        func = pair['equation']
+                        func = func.replace("^", "**")
+                        function = sympy.lambdify(trainer.vars_, func)
+                        function_score = r2_score(out_test_y, function(*out_test_X))
+                        out_score = max(out_score, function_score)
+                    except:
+                        continue
+                out_scores.append(out_score)
+                idx += 1
+                eq_et = time.time()
+                equations[i_size][eq].append(trainer.best_generator.sympy())
+                exp_logger.info(f'Proposed equation for {eq}:\n {trainer.best_generator.sympy()} \n in {eq_et - eq_st} seconds.')
+                exp_logger.info(f'R^2 score: {score}')
+            else:
+                out_score = 0
+                exp_logger.info('Something went wrong')
+                out_scores.append(out_score)
+                idx += 1
+                eq_et = time.time()
+                exp_logger.info('R^2 score: 0')
             
         scores = np.array(scores)
         scores /= num_runs
@@ -128,7 +135,7 @@ def run_all(run_name):
         del exp_logger
         i_size += 1
         eet = time.time()
-        run_logger.info(f'Finished Nguyen_{size} run in {eet - sst} seconds.')
+        run_logger.info(f'Finished Nguyen with noise level {int(level * 100)} run in {eet - sst} seconds.')
         run_logger.info(f'R^2 scores: {scores * num_runs}.')
     et = time.time()
     run_logger.info(f'Finished Nguyen Dataset runs in {et - st} seconds.')
@@ -140,25 +147,25 @@ def run_all(run_name):
 def plot_():
     average_scores = [sum([0 if x < 0 else x for x in g_s]) / len(g_s) for g_s in global_scores]
     neg_fracs = [sum([1 if x < 0 else 0 for x in g_s]) / len(g_s) for g_s in global_scores]
-    sample_sizes = [str(int(_)) for _ in config['baseline']['sample_sizes']]
-    colors = ['green', 'orange', 'red', 'blue', 'purple']
-    colors = colors[:len(sample_sizes)]
+    levels = [str(int(_ * 100)) for _ in config['noisy']['levels']]
+    colors = ['lime', 'orange', 'red', 'blue', 'purple', 'brown', 'pink', 'gray', 'green', 'olive', 'cyan']
+    colors = colors[:len(levels)]
     
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    x = np.arange(len(sample_sizes))
+    x = np.arange(len(levels))
     
     ax1.bar(x, average_scores, width=0.33, color=colors)
     ax1.set_title('Average $R^2$ score (ID)')
-    ax1.set_xlabel('Sample size')
+    ax1.set_xlabel('Noise level')
     ax1.set_xticks(x)
-    ax1.set_xticklabels(sample_sizes)
+    ax1.set_xticklabels(levels)
     
     ax2.bar(x, neg_fracs, width=0.33, color=colors)
         
     ax2.set_title('Fraction of negative $R^2$ (ID)')
-    ax2.set_xlabel('Sample size')
+    ax2.set_xlabel('Noise level')
     ax2.set_xticks(x)
-    ax2.set_xticklabels(sample_sizes)
+    ax2.set_xticklabels(levels)
     ax2.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
     ax2.grid(axis='y', linestyle='--', alpha=0.6)
     
@@ -173,25 +180,25 @@ def plot_():
 def plot_out_():
     average_scores = [sum([0 if x < 0 else x for x in g_s]) / len(g_s) for g_s in out_global_scores]
     neg_fracs = [sum([1 if x < 0 else 0 for x in g_s]) / len(g_s) for g_s in out_global_scores]
-    sample_sizes = [str(int(_)) for _ in config['baseline']['sample_sizes']]
-    colors = ['green', 'orange', 'red', 'blue', 'purple']
-    colors = colors[:len(sample_sizes)]
+    levels = [str(int(_ * 100)) for _ in config['noisy']['levels']]
+    colors = ['lime', 'orange', 'red', 'blue', 'purple', 'brown', 'pink', 'gray', 'green', 'olive', 'cyan']
+    colors = colors[:len(levels)]
     
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    x = np.arange(len(sample_sizes))
+    x = np.arange(len(levels))
     
     ax1.bar(x, average_scores, width=0.33, color=colors)
     ax1.set_title('Average $R^2$ score (OOD)')
-    ax1.set_xlabel('Sample size')
+    ax1.set_xlabel('Noise level')
     ax1.set_xticks(x)
-    ax1.set_xticklabels(sample_sizes)
+    ax1.set_xticklabels(levels)
     
     ax2.bar(x, neg_fracs, width=0.33, color=colors)
         
     ax2.set_title('Fraction of negative $R^2$ (OOD)')
-    ax2.set_xlabel('Sample size')
+    ax2.set_xlabel('Noise level')
     ax2.set_xticks(x)
-    ax2.set_xticklabels(sample_sizes)
+    ax2.set_xticklabels(levels)
     ax2.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
     ax2.grid(axis='y', linestyle='--', alpha=0.6)
     
@@ -205,12 +212,12 @@ def plot_out_():
 
 if __name__ == "__main__":
     config = OmegaConf.load(PATH)
-    global_scores = [[0] * 12 for _ in range(len(config['baseline']['sample_sizes']))]
-    out_global_scores = [[0] * 12 for _ in range(len(config['baseline']['sample_sizes']))]
+    global_scores = [[0] * 12 for _ in range(len(config['noisy']['levels']))]
+    out_global_scores = [[0] * 12 for _ in range(len(config['noisy']['levels']))]
     
-    num_runs = config['run']['num_runs']
+    num_runs = config['noisy']['num_runs']
     
-    equations = [{f'Nguyen_{i}': [] for i in range(1, 13)} for _ in range(len(config['baseline']['sample_sizes']))]
+    equations = [{f'Nguyen_{i}': [] for i in range(1, 13)} for _ in range(len(config['noisy']['levels']))]
     
     for i in range(1, num_runs + 1):
         run_all(f'Trial_Nguyen_{i}')
@@ -232,10 +239,10 @@ if __name__ == "__main__":
     f_path = config['run']['run_dir'] + '\equations'
     os.makedirs(f_path, exist_ok=True)
     
-    for j in range(len(config['baseline']['sample_sizes'])):
+    for j in range(len(config['noisy']['levels'])):
         for i in range(1, 13):
             eq = f'Nguyen_{i}'
-            with open(f_path + f'\{config["baseline"]["sample_sizes"][j]}_{eq}.txt', 'w+') as f:
+            with open(f_path + f'\{int(config["noisy"]["levels"][j] * 100)}_{eq}.txt', 'w+') as f:
                 for line in equations[j][eq]:
                     f.write(str(line) + '\n')
         f.close()

@@ -16,6 +16,37 @@ from sklearn.metrics import mean_absolute_error as MAE
 import omegaconf
 import sympy
     
+allowed_integers = [0.5, 1, 2]
+julia_array_str = "[" + ", ".join([f"{float(x)}" for x in allowed_integers]) + "]"
+custom_loss = f"""
+function eval_loss(tree, dataset::Dataset{'{T,L}'}, options)::L where {'{T,L}'}
+    prediction, flag = eval_tree_array(tree, dataset.X, options)
+    if !flag
+        return L(Inf)
+    end
+    mse = sum((prediction .- dataset.y).^2) / length(dataset.y)
+    
+    penalty = 0.0
+    num_constants = 0
+    
+    allowed_mags = {julia_array_str}
+    
+    for node in tree
+        if node.degree == 0 && node.constant
+            num_constants += 1
+            mag = abs(node.val)
+            
+            is_valid = any(abs(mag - allowed_val) < 1e-5 for allowed_val in allowed_mags)
+            
+            if !is_valid
+                penalty += 100000.0
+            end
+        end
+    end
+    
+    return mse + penalty
+end
+"""
 
 class Trainer(object):
     def __init__(self, 
@@ -63,6 +94,7 @@ class Trainer(object):
                                 'output_directory': self.pysr_dir,
                                 'model_selection': 'score',
                                 'fraction_replaced_guesses': 0.95,
+                                'loss_function': custom_loss,
                             }
         self.gen_config = None or {}
         self.task_constraints = None

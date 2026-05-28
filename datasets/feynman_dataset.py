@@ -132,11 +132,8 @@ class CompressedFeynmanDataset(BaseDataset):
         with open(self.dataset_dir + f'/{fname}') as f:
             self.points = [[float(x) for x in k.split()] for k in f.readlines()]
             f.close()
-        X = [[] for _ in range(num_vars)]
+        X = [[vec[_] for _ in range(num_vars)] for vec in self.points]
         y = [vec[-1] for vec in self.points]
-        for i in range(num_vars):
-            for vec in self.points:
-                X[i].append(vec[i])
         return X, y, formula, self.X_units, self.y_units, self.range
 
     def get_units(self, eq_num:int, num_vars:int) -> list:
@@ -261,11 +258,8 @@ class FeynmanDataset(BaseDataset):
         ids.sort()
         self.points = [[float(x) for x in k.split()] for k in [linecache.getline(fpath, _) for _ in ids]]
         linecache.clearcache()
-        X = [[] for _ in range(num_vars)]
+        X = [[vec[_] for _ in range(num_vars)] for vec in self.points]
         y = [vec[-1] for vec in self.points]
-        for i in range(num_vars):
-            for vec in self.points:
-                X[i].append(vec[i])
         return X, y, formula, self.X_units, self.y_units, self.range
 
     def get_units(self, eq_num:int, num_vars:int) -> list:

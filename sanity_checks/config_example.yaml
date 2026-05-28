@@ -1,0 +1,39 @@
+gcp:
+  output_dir: 'path/to/code/datasets/Feynman/Feynman_compressed'
+  dataset_dir: 'path/to/code/datasets/Feynman/Feynman_with_units'
+  csv_file: 'path/to/code/datasets/Feynman/FeynmanEquations.csv'
+  sample_size: 140
+
+f:
+  dataset_dir: 'path/to/code/datasets/Feynman'
+  csv_file: 'FeynmanEquations.csv'
+  seed: 42
+  n_equations: 100
+  sample_size: 20
+
+fu:
+  dataset_dir: 'path/to/code/datasets/Feynman'
+  csv_file: 'FeynmanEquations.csv'
+  seed: 42
+  n_equations: 100
+  sample_size: 20
+  use_units: True
+  units_path: 'path/to/code/datasets/Feynman/units.csv'
+
+cf:
+  dataset_dir: 'path/to/code/datasets/Feynman/Feynman_compressed'
+  csv_path: 'path/to/code/datasets/Feynman/FeynmanEquations.csv'
+  seed: 42
+  n_equations: 100
+  create_dir: True
+  sample_size: 100
+  uncompressed_path: 'path/to/code/datasets/Feynman/Feynman_with_units'
+
+cfu:
+  dataset_dir: 'path/to/code/datasets/Feynman/Feynman_compressed/Feynman_20'
+  csv_path: 'path/to/code/datasets/Feynman/FeynmanEquations.csv'
+  seed: 42
+  n_equations: 100
+  sample_size: 20
+  use_units: True
+  units_path: 'path/to/code/datasets/Feynman/units.csv'

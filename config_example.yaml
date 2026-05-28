@@ -1,0 +1,198 @@
+seed: 42
+
+main:
+  run_baseline: False
+  run_nguyen: False
+  run_feynman: True
+
+run:
+  nums_runs: 10
+  run_dir: 'path\to\code\experiments_folder'
+
+ablation:
+  num_runs: 10
+  cm: True
+  cp: True
+  pm: True
+  cm_run_dir: 'path\to\code\ablation_folder\CriticMutator'
+  cp_run_dir: 'path\to\code\ablation_folder\CriticPlanner'
+  pm_run_dir: 'path\to\code\ablation_folder\PlannerMutator'
+
+env:
+  url: "https://router.huggingface.co/v1"
+  token: YOUR HF TOKEN HERE
+
+generator:
+  tunable_keys: ['maxsize', 'maxdepth', 'binary_operators', 'unary_operators']
+  base_params: {'maxsize':15,
+                'maxdepth':12,
+                'binary_operators':["+", "-", "*", "/", "^"],
+                'unary_operators':[
+                    "cos",
+                    "exp",
+                    "sin",
+                    "sqrt",
+                    "log",
+                ],
+                'constraints':{
+                               'pow': (-1, 5),
+                               'log': 5, 
+                               'sin': 5, 
+                               'cos': 5, 
+                               'sqrt': 5,
+                              },
+                'nested_constraints':{
+                                      'log': {'log': 0, 'exp': 0},
+                                      'sin': {'sin': 0, 'cos': 0},
+                                      'cos': {'cos': 0, 'sin': 0},
+                                      'sqrt': {'sqrt': 0},
+                                      'exp': {'exp': 0, 'log': 0},
+                                     },
+                }
+
+LLM:
+  planner_model: YOUR HF MODEL HERE
+  mutator_model: YOUR HF MODEL HERE
+  critic_model: YOUR HF MODEL HERE
+
+checkpoint_path: null
+new_checkpoint_path: 'path\to\code\checkpoints_folder'
+losses_plot_path: 'path\to\code\plots_folder\losses.txt'
+
+train:
+  planner_retry: True
+  num_epochs: 10
+  early_stop: 3
+  plot: True
+  metric: 'MSE'
+  size: 100
+  factor: 40
+
+val:
+  size: 20
+
+
+prompts:
+  planner_sys_prompt: 'path\to\code\prompts\planner_sys_prompt.txt'
+  planner_user_prompt: 'path\to\code\prompts\planner_user_prompt.txt'
+  unit_planner_user_prompt: 'path\to\code\prompts\unit_planner_user_prompt.txt'
+  mutator_sys_prompt: 'path\to\code\prompts\mutator_sys_prompt.txt'
+  mutator_user_prompt: 'path\to\code\prompts\mutator_user_prompt.txt'
+  critic_sys_prompt: 'path\to\code\prompts\critic_sys_prompt.txt'
+  critic_user_prompt: 'D:\Диплом 2\Code\prompts\critic_user_prompt.txt'
+
+1d_funcs:
+  Nguyen_1: 'lambda x: x**3 + x**2 + x'
+  Nguyen_2: 'lambda x: x**4 + x**3 + x**2 + x'
+  Nguyen_3: 'lambda x: x**5 + x**4 + x**3 + x**2 + x'
+  Nguyen_4: 'lambda x: x**6 + x**5 + x**4 + x**3 + x**2 + x'
+  Nguyen_5: 'lambda x: np.sin(x**2) * np.cos(x) - 1'
+  Nguyen_6: 'lambda x: np.sin(x) + np.sin(x + x**2)'
+  Nguyen_7: 'lambda x: np.log(x + 1) + np.log(x**2 + 1)'
+  Nguyen_8: 'lambda x: np.sqrt(x)'
+  'exp(-theta**2/2)/sqrt(2*pi)': 'lambda x: np.exp(-x**2/2)/np.sqrt(2*np.pi)'
+
+noisy:
+  num_runs: 10
+  levels: [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1]
+  lib: {
+         1:[-1, 1, [40, 1]],
+         2:[-1, 1, [40, 1]],
+         3:[-1, 1, [40, 1]],
+         4:[-1, 1, [40, 1]],
+         5:[-1, 1, [40, 1]],
+         6:[-1, 1, [40, 1]],
+         7:[0, 2, [40, 1]],
+         8:[0, 4, [40, 1]],
+         9:[0, 1, [40, 2]],
+         10:[0, 1, [40, 2]],
+         11:[0, 1, [40, 2]],
+         12:[0, 1, [40, 2]],
+        }
+
+baseline:
+  num_runs: 10
+  baseline_run_name: "experiment_name"
+  sample_sizes: [20, 100]
+  get_compressed_points: False
+  constrained: True
+  run_nguyen: False
+  run_feynman: False
+  run_feynman_units: False
+  gcp: {
+        'output_dir': 'path/to/code/datasets/Feynman/Feynman_compressed',
+        'dataset_dir': 'path/to/code/datasets/Feynman/Feynman_with_units',
+        'csv_file': 'path/to/code/datasets/Feynman/FeynmanEquations.csv'
+       }
+  units_path: 'path/to/code/datasets/Feynman/units.csv'
+  cf_dataset_dir: 'path/to/code/datasets/Feynman/Feynman_compressed'
+  csv_path: 'path/to/code/datasets/Feynman/FeynmanEquations.csv'
+
+experiments:
+  Nguyen_run_name: 'experiment_name'
+  Nguyen:
+    lib: {
+           1:[-1, 1, [40, 1]],
+           2:[-1, 1, [40, 1]],
+           3:[-1, 1, [40, 1]],
+           4:[-1, 1, [40, 1]],
+           5:[-1, 1, [40, 1]],
+           6:[-1, 1, [40, 1]],
+           7:[0, 2, [40, 1]],
+           8:[0, 4, [40, 1]],
+           9:[0, 1, [40, 2]],
+           10:[0, 1, [40, 2]],
+           11:[0, 1, [40, 2]],
+           12:[0, 1, [40, 2]],
+         }
+    n_equations: 12
+    subset: null
+  dom: [
+         [-1, 1],
+         [-1, 1],
+         [-1, 1],
+         [-1, 1],
+         [-1, 1],
+         [-1, 1],
+         [0, 2],
+         [0, 4],
+         [0, 1],
+         [0, 1],
+         [0, 1],
+         [0, 1]
+       ]
+  Feynman_run_name: 'experiment_name'
+  Feynman:
+    'dataset_dir': 'path/to/code/datasets/Feynman/Feynman_compressed/Feynman_{}'
+    'csv_path': 'path/to/code/datasets/Feynman/FeynmanEquations.csv'
+    'n_equations': 10
+    'sample_size': 120
+    'subset': [8, 15, 42, 10, 12, 13, 27, 35, 37, 38]
+    'use_units': True
+    'units_path': 'path/to/code/datasets/Feynman/units.csv'
+
+HINTS:
+  Nguyen_1: 'The function is some polynomial of the input variable.'
+  Nguyen_2: 'The function is some polynomial of the input variable.'
+  Nguyen_3: 'The function is some polynomial of the input variable.'
+  Nguyen_4: 'The function is some polynomial of the input variable.'
+  Nguyen_5: 'The function is some composition of some trigonometric functions of the input variable.'
+  Nguyen_6: 'The function is some composition of some trigonometric functions of the input variable.'
+  Nguyen_7: 'The function is some logarithm of the input variable.'
+  Nguyen_8: 'The function is a square root of the input variable.'
+  Nguyen_9: 'The function is some composition of some trigonometric functions of the input variables.'
+  Nguyen_10: 'The function is some composition of some trigonometric functions of the input variables.'
+  Nguyen_11: 'The function is some power law of the input variables.'
+  Nguyen_12: 'The function is some polynomial of the input variables.'
+
+FIELDS:
+  'mu*Nn': 'Mechanics'
+  'q1*q2*r/(4*pi*epsilon*r**3)': 'Electromegnetism'
+  'q2*Ef': 'Electromagnetism'
+  'q*(Ef+B*v*sin(theta))': 'Electromagnetism'
+  'm*g*z': 'Mechanics'
+  '1/(1/d1+n/d2)': 'Optics and wave phenomena'
+  'omega_0/(1-v/c)': 'Optics and wave phenomena'
+  '(h/(2*pi))*omega': 'Quantum mechanics'
+  'I1+I2+2*sqrt(I1*I2)*cos(delta)': 'Quantum mechanics'
+  'n*kb*T/V': 'Thermodynamics'

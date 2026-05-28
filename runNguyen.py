@@ -17,7 +17,7 @@ def run_Nguyen():
     Runs experiment on NguyenDataset.
     -------
     '''
-    config = OmegaConf.load('D:\Диплом 2\Code\config.yaml')
+    config = OmegaConf.load(PATH)
     if config['main']['run_nguyen'] == False:
         return
     idx = 1
@@ -47,7 +47,7 @@ def run_Nguyen():
         
         for x, y, eq in tqdm(n_train_loader):
             npx = np.asarray(x)
-            npx = npx.reshape(npx.shape[-1], npx.shape[0])
+            npx = np.vstack(npx).T
             npy = np.asarray(y)
             npy = npy.reshape(npy.shape[-1], npy.shape[0])
             eq = eq[0]

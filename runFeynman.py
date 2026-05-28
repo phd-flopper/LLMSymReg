@@ -20,7 +20,7 @@ def run_Feynman():
     Runs experiment on FeynmanDataset.
     -------
     '''
-    config = OmegaConf.load('D:\Диплом 2\Code\config.yaml')
+    config = OmegaConf.load(PATH)
     if config['main']['run_feynman'] == False:
         return
     idx = 1
@@ -50,7 +50,7 @@ def run_Feynman():
         
         for x, y, eq, xu, yu, r in tqdm(cfu_train_loader):
             npx = np.asarray(x)
-            npx = npx.reshape(npx.shape[1], npx.shape[0])
+            npx = npx.reshape(npx.shape[0], npx.shape[1])
             npy = np.asarray(y)
             npy = npy.reshape(npy.shape[0], npy.shape[1])
             helper_xu(xu)
