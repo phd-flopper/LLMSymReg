@@ -56,7 +56,7 @@ model = Trainer(your_config, X, y, your_func, your_run_dir, your_dom, X_units=xu
 model.run()
 ```
 
-specify 'X_units' and 'y_units' (in SI) if you are working with units; '' is used to denote a dimensional variable.\
+specify 'X_units' and 'y_units' (in SI) if you are working with units; '' is used to denote a dimensionless variable.\
 If you are working with units, you should expand FIELDS in your_config.yaml with 'your_func': 'your_context'\
 Otherwise, if working with synthetic data, expand HINTS in your_config.yaml with 'your_func': 'your_context'
 
