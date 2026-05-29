@@ -1,0 +1,28 @@
+Remember that your collegue "Planner" proposed these constraints: {constraints}.
+Also remember that your other collegue "Mutator" proposed these equations: {eqs}.
+Here are the current parameters of the PySR generator: {params}.
+Please consider the following report: {telemetry}.
+
+
+Based on the report, please formulate updated parameters for the PySR generator. Specifically, judge whether we are making good progress or not.
+
+If based on your analysis of the report we are making good progress, then you should not change parameters. Here's an example:
+
+### JSON Output Structure:
+```json
+{{
+  {params}
+}}
+
+Otherwise, output a JSON object with your proposed new values of the parameters to enhance the search. NEVER CHANGE "maxsize" PARAMETER.
+
+Your output MUST be a single, valid JSON object containing the aforementioned keys and their respective correct values. You should only generate one instance of the JSON object.
+Here is a small example:
+### JSON Output Structure:
+```json
+{{
+  "complexity_of_constants": "your proposed value here",
+  "dimensional_constraint_penalty": "your proposed value here",
+}}
+
+Your output JSON MUST ONLY contain the mentioned keys and their values.

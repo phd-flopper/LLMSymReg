@@ -1,0 +1,31 @@
+### Proposed JSON Parameters
+
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 7,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": []
+}
+```
+
+### CONSTRAINTS
+
+The target function represents the force experienced by an object in a certain electromagnetic field. We can expect the target function to be a function of the electromagnetic field's intensity, which in turn is proportional to the square of the electric field strength. Therefore, we can expect the target function to be a function of the product and/or sum of the variables `x0` and `x1`, which represent the electric field strength in two different directions.
+
+Additionally, considering the units of the variables, we can expect the target function to be proportional to `x0` squared and/or `x1` squared, since the electric field strength in a certain direction is proportional to the voltage divided by the distance.
+
+We also expect the target function to be a function of the distance between the object and the source of the electromagnetic field, represented by `x3`. This is because the electric field strength decreases with distance.
+
+Finally, since the target function is a force, which is a vector quantity, we can expect it to be proportional to the electric field strength and/or the distance.
+
+Therefore, the proposed constraints are:
+
+- Each variable must be used at least once.
+- The target function must be a function of the product and/or sum of `x0` and `x1`.
+- The target function must be proportional to `x0` squared and/or `x1` squared.
+- The target function must be a function of `x3`.
+- The target function must be proportional to `x0` and/or `x1` and/or `x3`.
+
+### Proposed Ansatz
+['x0**2 * x1 + x0 * x3**2']

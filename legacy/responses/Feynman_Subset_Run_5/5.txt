@@ -1,0 +1,23 @@
+### JSON Output Structure:
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 4,
+  "binary_operators": ["+", "-", "*", "^"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on our field of study and the given dataset, we can propose the following constraints:
+
+- The target function should be a function of `x0`, `x1`, and `x2`.
+- The target function should be physically meaningful, which implies that it should not have any complex trigonometric or exponential functions.
+- The target function should be a function of the variables in a way that is dimensionally consistent with the units of the variables.
+- The target function is likely to be a function of the kinetic energy of the system, which is a function of `x1^2` and `x2^2`.
+- The target function may also include a term for the potential energy of the system, which is a function of `x0`.
+
+Considering these constraints, we can propose the following ansatz:
+
+['x0 * x1^2 + x2^2']

@@ -1,0 +1,24 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the given dataset and the field of study Electromagnetism, we can infer the following constraints for the symbolic regression analysis:
+
+1. Since we're dealing with Electromagnetism, the target function should be related to forces, electric fields, or charges. Given that the target function is measured in `m / s^2 * kg` and the input variables `x0` and `x1` are in `m^2 / s^2 * kg / V` and `1 / m * V` respectively, we can expect the target function to be related to the interaction between electric fields or charges.
+2. Considering the units of the input variables, we can assume that the target function will involve some form of multiplication or division between `x0` and `x1`, as these operations preserve the units. Addition and subtraction are unlikely to be present in the target function, as they would require units to be added or subtracted, which is not physically meaningful in this context.
+3. Since the target function is expected to be related to forces, we can assume that it will involve some form of power-law relationship between `x0` and `x1`. Therefore, we can expect the target function to involve the `*` or `/` operators.
+4. Given that the target function is measured in `m / s^2 * kg`, we can expect it to involve some form of unit cancellation between `x0` and `x1`. This suggests that the target function may involve some form of trigonometric function, such as `sin` or `cos`, which can help to cancel out units.
+5. Based on the given dataset, we can observe that the target function values are generally increasing with increasing values of `x0` and `x1`. This suggests that the target function may involve some form of positive power-law relationship between `x0` and `x1`.
+
+Considering these constraints, we can propose the following ansatz:
+
+['x0 * x1^2 * sin(x0)' ]
+
+This ansatz captures the expected power-law relationship between `x0` and `x1`, while also incorporating the `sin` function to help cancel out units. The `^2` exponent is chosen to match the expected power-law relationship, while the `sin` function is chosen to match the observed unit cancellation in the target function values.

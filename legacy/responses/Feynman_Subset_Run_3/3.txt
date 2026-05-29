@@ -1,0 +1,32 @@
+### Proposed PySR Model Parameters
+```json
+{
+  "maxsize": 12,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Given that we are studying the field of Electromagnetism, we know that the target function (Force) is a result of the interaction between an Electric field and a Charge. We can express this relationship as F = qE, where F is the Force, q is the Charge, and E is the Electric field.
+
+Since the Electric field is a function of the potential difference (V) and distance (r), we can express it as E = V/r^2.
+
+We know that the potential difference (V) is directly related to the Electric field (E) and distance (r) as V = E*r^2.
+
+Combining these relationships, we get F = q*(V/r^2)*r^2 = qV.
+
+This tells us that the Force is proportional to the product of the Charge and the potential difference.
+
+Additionally, we can see that the dataset is sampled from a range of [1, 5] for both x0 and x1. This suggests that the target function may be a function of the product of these two variables.
+
+Therefore, we can propose the following constraints:
+
+* The target function is a function of the product of x0 and x1 (F = f(x0*x1)).
+* The target function should be a physically meaningful expression that does not contradict the relationships between Force, Charge, and Electric field.
+* The expression should not contain any units.
+
+### Proposed Ansatz
+['x0 * x1']

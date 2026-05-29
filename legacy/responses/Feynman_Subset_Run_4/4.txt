@@ -1,0 +1,33 @@
+### Proposed Constraints
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 8,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+Based on the given dataset and domain expertise in the field of Electromagnetism, the proposed constraints are as follows:
+
+Since we are dealing with physical quantities and their units, we should be cautious when applying operators to them. This means that any binary operator can be applied to any pair of variables or expressions. However, unary operators, which do not take any argument, can only be applied to dimensionless quantities or expressions that result in a dimensionless quantity. This is because applying unary operators to physical quantities would change their dimension, which is physically meaningless.
+
+From the dataset, we can see that the target function `y` has units of `m/s^2 * kg`. We also have variables `x0`, `x1`, `x2`, `x3`, and `x4`, each with their respective units. To propose a reasonable ansatz, we need to consider the possible combinations of these variables that can result in a dimensionless quantity.
+
+Given the units of the variables, we can propose the following constraints:
+
+1.  `x_units` is not empty, indicating that we have physical quantities in the dataset.
+2.  Since we are dealing with physical quantities, we should only apply binary operators to them.
+3.  We should not apply unary operators to physical quantities, as it would change their dimension.
+4.  We can apply unary operators to dimensionless quantities or expressions that result in a dimensionless quantity.
+
+### CONSTRAINTS
+
+1.  The expression should not contain any other letters apart from the variables and operators.
+2.  The expression should not contain any units.
+3.  The expression should only contain variables from `['x0', 'x1', 'x2', 'x3', 'x4']` and operators.
+4.  The expression should be dimensionally consistent with the target function `y`.
+
+### Proposed Ansatz
+
+['x1**2 * x2 / (x0 * x3) + x4']

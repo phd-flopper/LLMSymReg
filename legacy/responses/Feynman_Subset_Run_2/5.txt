@@ -1,0 +1,22 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the field of Mechanics and the given dataset, we can propose the following constraints:
+
+* The function should be physically meaningful and simple. This implies that the function should not contain unnecessary terms or complex mathematical operations.
+* The function should be able to capture the dependency between the input variables ['x0', 'x1', 'x2'] and the target variable y.
+* Since the target variable y has units of Energy (m^2 / s^2 * kg), the function should be dimensionally consistent. This means that the input variables ['x0', 'x1', 'x2'] should be combined using operators in a way that results in a function with units of Energy.
+* Considering the units of the input variables ['x0', 'x1', 'x2'] (Mass, Acceleration, and Length), the function should likely involve terms that involve mass, acceleration, and length.
+* The function may involve terms that involve the product of mass and acceleration (which would result in a force), and terms that involve the product of length and force (which would result in a work or energy term).
+
+### Proposed Ansatz
+
+['x0 * x1^2 + x2^3']

@@ -1,0 +1,35 @@
+### Proposed Parameters for PySR Model
+
+```json
+{
+  "maxsize": 17,
+  "maxdepth": 9,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+The proposed parameters are chosen based on the provided dataset and the field of study in Electromagnetism. The maximum complexity of the equation is set to 17, which is strictly above 7 and lower than 20.
+
+The maximum depth of the equation's expression tree is set to 9, which is lower than the maximum complexity of 17 and higher than 3. This allows for a reasonable balance between simplicity and complexity.
+
+The list of binary operators includes all possible ones, considering that the function may contain addition, subtraction, multiplication, division, and exponentiation. The list of unary operators includes sine, cosine, and logarithm functions, which are commonly used in Electromagnetism.
+
+### CONSTRAINTS
+
+Based on the field of study in Electromagnetism, the following constraints can be proposed:
+
+* The target function, which represents a physical quantity, should be dimensionally consistent with the input variables.
+* The input variables, x0 and x1, represent Electric field and Charge, respectively. Therefore, any composition of these variables should result in a dimensionally consistent quantity, which is Force in this case.
+* The function may contain trigonometric functions, such as sine and cosine, to capture periodic dependencies.
+* The function may contain logarithmic functions to capture non-linear dependencies.
+* The function may contain exponential functions, but with caution, as they can lead to unphysical solutions in some cases.
+* The function should not contain division by zero, which can lead to unphysical solutions.
+
+### Analysis of x_units
+
+The input variables, x0 and x1, have units of Electric field and Charge, respectively. Therefore, any composition of these variables should result in a dimensionally consistent quantity, which is Force in this case.
+
+### Proposed Function Ansatz
+
+['x0 * x1']

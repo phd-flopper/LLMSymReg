@@ -1,0 +1,52 @@
+We are performing symbolic regression analysis on the Nguyen Dataset for Symbolic Regression. 
+Here are the points of the dataset `X`: {X}
+Points are sampled from some distribution in range {dom}. 
+Here are the respective values `y`: {y}
+These points represent the `target` {tgt} function of the Nguyen Dataset. If `X` is passed into `target` as input, the output is `y`.
+
+We are using PySR as the generator of candidate expressions.
+
+Please analyze the given dataset. Based on your analysis and domain expertise and knowledge of target function, please propose constraints to best guide the search. 
+
+Here are the default parameters of PySR generator: {params}.
+Carefully examine the structure type, since you can only edit values.
+I need you to propose correct values for only these parameters of the PySR model.
+
+Your output MUST be a single, valid JSON object containing the aforementioned keys and their respective correct values. Be very mindful with proposed constraints, as once you propose them, we cannot change them.
+You should only generate one instance of the JSON object.
+Here is a small example:
+### JSON Output Structure:
+```json
+{{
+  "maxsize": your proposed integer value here,
+  "maxdepth" your proposed integer value here,
+  "binary_operators": [your proposed list here],
+  "unary_operators": [your proposed list here],
+  "constraints": {{'pow': (your proposed values here if "^" is present in 'binary_operators'),
+'log': your proposed integer value here if 'log' is present in 'unary_operators',
+'sin': your proposed integer value here if 'sin' is present in 'unary_operators',
+'cos': your proposed integer value here if 'cos' is present in 'unary_operators',
+'sqrt': your proposed integer value here if 'sqrt' is present in 'unary_operators'
+}},
+  "nested_constraints": your proposed dict here
+
+"maxsize" specifies the maximum complexity of the equation. You should propoose an integer value STRICTLY above 7 and lower than 20.
+
+"maxdepth" specifies the maximum depth of the equation's expression tree. 12 is a good value unless your domain knowledge suggests that the equation is very complex. "maxdepth" also SHOULD NEVER BE HIGHER than "maxsize" and LOWER than 3.
+
+"binary_operators" is a list specifying available binary operators. Your possible output is any non-empty subset of ['+', '-', '*', '/', '^']. Consider removing operators if you think they are not needed. Remember, that the list of operators SHOULD NEVER be empty and SHOULD NEVER exceed the possible output subset.
+
+"unary_operators" is a list specifying available unary operators. Your possible output is any (including empty this time) subset of ['sin', 'cos', 'log', 'exp', 'sqrt']. Consider removing any unary operators if you think they are not needed. Empty list [] is a possible output in some cases. This list SHOULD NEVER exceed the possible output. Do not introudce new unlisted unary operators.
+
+"constraints" is a dict that enforces maxsize constraints on the individual arguments of operators. For example, 'pow': (-1, 1) says that power laws can have any complexity left argument, but only 1 complexity in the right argument. Use this to force more interpretable solutions. You SHOULD NEVER increase integer values above 5. You SHOULD NEVER decrease integer values below 1. Consider decreasing the values of specified keys if the equations are too long or too complex. Consider increasing (up to 5), if the equations are too simple. MAKE SURE THAT THE KEYS OF THIS DICT CORRELATE TO AVAILABLE "unary_operators"! For example, if you propose removing '^' from 'binary_operators' list, you MUST also remove the corresponding key from "constraints" dictionary. Likewise, if you propose adding an operator, YOU MUST ENSURE that you also add a corresponding key to the 'constraints' dict. REFER TO THE DEFAULT PARAMS FOR EXAMPLE.
+
+"nested_constraints" is a dict that pecifies how many times a combination of operators can be nested. You SHOULD NEVER change the values of this dict. What you should do is to MAKE SURE THAT THE KEYS OF THIS DICT CORRELATE TO AVAILABLE "unary_operators"! For example, if your proposed list of 'unary_operators' is ['log', 'sin'] then 'nested_constraints' dict should only contain this two keys with their default values. So, if you decide to remove 'unary_operators' from the list, you MUST also remove corresponding keys in 'nested_constraints'. Likewise, if you decide to add 'unary_operators', you MUST add corresponding keys with their default values in 'nested_constraints'. REFER TO THE DEFAULT PARAMS FOR EXAMPLE.
+
+After your JSON object output, I want you to formulate constraints for the task in textual form. Your constraints should state that each `variable` must be used at least once. You should write your proposed constraints and reasoning for them after first writing ### CONSTRAINTS.
+
+Finally, on the last line of your response I need you to output a function we are looking for. `target` is exactly the function we are looking for. The last line should only contain the Nguyen equation we are looking for. Write it down using these variables: {vars_}
+Here is an example:
+
+['function']
+
+MAKE SURE THAT THE LAST LINE OF YOUR RESPONSE CONSISTS OF ONLY THE PROPOSED ANSATZ.

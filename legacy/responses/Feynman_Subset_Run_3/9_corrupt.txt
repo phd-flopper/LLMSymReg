@@ -1,0 +1,34 @@
+```json
+{
+  "maxsize": 13,
+  "maxdepth": 9,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log", "exp", "sqrt"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the given dataset, we are studying the field of Quantum mechanics. Therefore, we need to ensure that our equations are physically meaningful and follow the principles of Quantum mechanics.
+
+Since `x_units` is not None, we need to analyze the units of the variables.
+
+`x_units`: [{'Light intensity': ['s^3 * kg']}, {'Light intensity': ['s^3 * kg']}, {'Dimensionless': None}]
+
+The units of `x0` and `x1` are both `s^3 * kg`, which means they are related to energy. `x2` is dimensionless.
+
+Based on the units of `x0` and `x1`, we can infer that the target function is also related to energy.
+
+`y_units`: {'Light intensity': 's^3 * kg'}
+
+Since the target function represents light intensity, which is a measure of the energy per unit area per unit time, we can conclude that the target function is indeed related to energy.
+
+Given the units of the variables and the target function, we can propose the following constraints:
+
+* The equation should only contain binary operators that are valid for energy-related quantities, such as addition, subtraction, multiplication, and division.
+* The equation should not contain any unary operators that would change the dimension of the variables, such as exponential or logarithmic functions.
+* The equation should only contain the variables `x0`, `x1`, and `x2`, and their combinations, without any other letters or units.
+
+### ANSATZ
+
+['x0 * x1^2 + x2 * sin(x1)']

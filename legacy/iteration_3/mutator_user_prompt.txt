@@ -1,0 +1,20 @@
+Remember that your collegue "Planner" proposed these `constraints`: {constraints}.
+Also remember that your other collegue "Critic" proposed these `ideas`: {ideas}.
+Please consider the following equations (We will refer to them as `array`): {eqs}.
+Carefully investigate each one of them.
+Based on proposed `constraints` and `ideas`, output a list of enhanced equations. Make sure to only output ONE list of equations and nothing more. You should not output a list which length is higher than that of `array`. By enhancing equations, we first of all assume simplification in terms of equation's length. For example, rounding values like 0.99999817 to 1.0 and always reducing heavily nested operators. 
+However, you should carefully take into account `constraints` and `ideas`. 
+
+Let's take a look at a simple example:
+
+Suppose, we have `array` ['x0 * sin(x1)', 'cos(cos(cos(cos(x1))))', 'x1 + 0.98172 * x0'].
+Suppose, we have `constraints` that, among other valueable information, specify that all variables should be present in an equation.
+Suppose, we have `ideas` that cosine function is not a promising direction, but sinusoid could be.
+
+Based on all of the above, in this spefic example, your proposal could be to 1) leave the first equation as is, because it doesn't violate `constraints` and `ideas`; 2) reduce nested operators in the second equation, replace `cos` with `sin` as proposed in `ideas` and introduce x0 to equation as required by `constraints`; 3) replace 0.98172 by 1.0.
+
+Hence your output in above situation could be:
+
+['x0 * sin(x1)', 'sin(x1 + x0))', 'x1 + x0']
+
+MAKE SURE NOT TO OUTPUT ANYTHING AFTER YOU HAVE WRITTEN THE OUTPUT LIST. 

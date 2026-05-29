@@ -1,0 +1,30 @@
+```json
+{
+  "maxsize": 13,
+  "maxdepth": 5,
+  "binary_operators": ["+", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+Given that we are studying the field of Electromagnetism and our dataset represents a relationship between electric field and charge distribution, we expect the target function to be related to the force experienced by a charge under the influence of the electric field.
+
+Since we are dealing with physical quantities, we must consider the units of the variables involved. The electric field strength (E) has units of V/m, while charge (q) has units of C. The force (F) experienced by a charge under the influence of an electric field is given by F = qE.
+
+We can analyze the structure of the dataset to see if it matches this expected relationship. Upon inspection, we can see that the units of the target variable ('Force' or 'm / s^2 * kg') match the expected units of the force experienced by a charge under the influence of an electric field.
+
+Given that the dataset represents a relationship between electric field and charge distribution, we expect the target function to be related to the force experienced by a charge under the influence of the electric field. Therefore, we propose the following constraints:
+
+1. The target function must be a composition of the variables ['x0', 'x1'] that results in a unit of 'm / s^2 * kg'.
+2. Each variable must be used at least once in the target function.
+3. The target function must not contain any constant terms or coefficients.
+4. The target function must not contain any trigonometric functions other than 'sin' and 'cos'.
+5. The target function must not contain any exponential or logarithmic functions.
+6. The target function must not contain any square root functions.
+
+Considering these constraints and the expected relationship between the electric field and charge distribution, we propose the following function ansatz:
+
+['x0 * x1']
+
+This ansatz represents the force experienced by a charge under the influence of an electric field, which is given by F = qE. In this case, q is represented by 'x0' and E is represented by 'x1'. The ansatz satisfies all the proposed constraints and is a reasonable composition of the variables ['x0', 'x1'] that results in a unit of 'm / s^2 * kg'.

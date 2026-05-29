@@ -1,0 +1,24 @@
+### Proposed Constraints
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 8,
+  "binary_operators": ['+', '*', '^'],
+  "unary_operators": ['sin', 'cos', 'sqrt']
+}
+```
+
+Based on the parameters of the PySR generator, I propose to reduce the maximum size and depth of the equation. The maximum size is set to 15 to account for the potential complexity of the target function. However, the maximum depth is reduced to 8 to prevent overly complex equations and to avoid potential dimensionality issues.
+
+I also suggest removing the division operator from the list of binary operators. This is because the division operator can lead to dimensionality issues when applied to physical quantities.
+
+In addition, I propose to remove the log and exp unary operators from the list. This is because these operators are not commonly used in the field of quantum mechanics and may not be necessary for the target function. The sqrt unary operator is retained as it is commonly used in physics to describe processes involving energy.
+
+### CONSTRAINTS
+
+Based on our field of study, we should expect the target function to be a simple, physically meaningful expression that describes the relationship between the input variables and the output. Given that the input variables are measured in units of light intensity, we should expect the target function to be a function of the input variables that does not involve any non-physical operations.
+
+The target function should also be a function of the input variables that does not involve any dimensionally inconsistent operations. This means that any binary operators applied to physical quantities should result in a quantity with the same or compatible units.
+
+### Proposed Ansatz
+['x0*sin(x1*x2)']

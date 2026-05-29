@@ -1,0 +1,29 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the given dataset and domain expertise, the following constraints are proposed:
+
+1. The maximum complexity of the equation (`maxsize`) should not be too high, as we are dealing with a relatively simple physics problem. A value of 10 is proposed to allow for a reasonable number of terms and operators while preventing overfitting.
+2. The maximum depth of the equation's expression tree (`maxdepth`) should be lower than the maximum complexity to prevent overly complex equations. A value of 6 is proposed to allow for a reasonable balance between complexity and simplicity.
+3. The set of binary operators should not be too limited, as we want to allow for a range of possible equations. However, the set of binary operators should not be too complex either, as this may lead to overfitting. The proposed set of binary operators includes all common operators, with the exception of division by zero.
+4. The set of unary operators should be limited to trigonometric functions, as these are the most commonly used unary operators in physics. The proposed set of unary operators includes sine and cosine, which are commonly used to model periodic phenomena.
+5. If `x_units` is not None, the analysis of this variable is as follows:
+- The variables 'x0', 'x1', and 'x2' have units of Mass, Acceleration, and Length, respectively.
+- The target function has units of Energy, which can be expressed in terms of Mass, Length, and Time (m^2/s^2 kg).
+- Therefore, the target function should be able to be expressed as a composition of 'x0', 'x1', and 'x2', with possible unary operators and binary operators.
+
+### ANSATZ
+
+The proposed function ansatz is:
+
+[x0^2 * x1^2 + x1 * x2^2]^1/2
+
+This ansatz captures the dependency between the dataset and the target by squaring the Mass and Acceleration variables, multiplying them with each other and with the square of the Length variable, and then taking the square root of the result. This ansatz does not violate the proposed constraints and follows dimensionality logic.

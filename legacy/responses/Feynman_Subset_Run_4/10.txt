@@ -1,0 +1,22 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "^"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the dataset and our field of study (Thermodynamics), I propose the following constraints:
+
+1. Since the target function is measured in Pressure and our variables have corresponding units, the proposed composition of `variables` should equal `y_units`. This implies that the equation must be dimensionally consistent with the Pressure unit.
+2. The dataset likely represents a thermodynamic system that can be described using the ideal gas law or other thermodynamic relations. Therefore, it is reasonable to assume that the target function is a function of temperature, volume, and pressure.
+3. Since the dataset contains a mix of high and low values, it is likely that the target function is non-linear. Therefore, I propose to include binary operators that can produce non-linear effects, such as multiplication and exponentiation.
+4. Since the target function is a physical quantity, it is reasonable to assume that it is a monotonic function of the input variables. Therefore, I propose to exclude binary operators that can produce non-monotonic effects, such as the division operator.
+5. Since the dataset contains a mix of variables with different units, it is likely that the target function will require a combination of these variables to produce the correct units. Therefore, I propose to include unary operators that can transform the input variables into the correct units.
+
+### Proposed Ansatz
+
+['x3^x1 * x2 / x0']

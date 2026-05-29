@@ -1,0 +1,30 @@
+Here are the points of the dataset {X}, and here are the respective values {y}. Our task is to find a function that takes dataset points as input and outputs the values. Please analyze the given data. Based on your analysis, please propose constraints to best guide the search. The search will be conducted through a PySR model. Specifically, I need you to propose correct values for these parameters of the PySR model: {params}.
+Your output MUST be a single, valid JSON object containing the aforementioned keys and their respective correct values. Be very mindful with proposed constraints, as once you propose them, we cannot change them.
+You should only generate one instance of the JSON object.
+Here is a small example:
+### JSON Output Structure:
+```json
+{{
+  "maxsize": your proposed value here,
+  "unary_operators": ["your proposed value here"],
+  "binary_operators": ["your proposed value here"]
+}}
+
+Note that "maxsize" should not be lower than 20, unless you suspect that f(x) is extremely simple, like f(x) := x**2 or sqrt(x). Also note that "maxsize" larger than 40 is usually unreasonable.
+
+Note that for "binary_operators" you should typically only consider ["+", "*", "-", "/"]. However, if you strongly feel like higher powers (larger than cube) are in place, you can expand this list with "^" (so the result is ["+", "*", "-", "/", "^"]).
+
+Note that for "unary_operators" you should typically only consider ["sin", "cos", "log", "exp"]. You can expand it with other trigonometric functions (namely, "tan"), with "sqrt", with "square" (which is equal to squaring a variable; add this if you suspect there are squared variables), with "cube" (which is equal to taking a cube of a variable; add this if you suspect there are squared variables).
+
+After your JSON object output, I want you to generate some constraints for the task in the textual form. These constraints should not contradict the parameters that you have proposed. For example, state that each equation is required to feature all variables. You should write your proposed constraints and reasoning for them after first writing ### CONSTRAINTS.
+
+Additionally, if you strongly believe that a function that describes the relationship between given data has a specific form, you should specify it. Make sure to write ### TEMPLATE before the actual template. Here is an example:
+
+### TEMPLATE
+template = TemplateExpressionSpec(
+    expressions=["f", "g"],
+    variable_names=["x0", "x1"],
+    combine="sin(f(x0)) + g(x1)",
+)
+
+In this example we assume that the function that describes the relationship between given data has a form of a sum of a sinusoid and some other function. Note, that this is only an example meant to provide you with a clear form of your output. If you come to a meaningful conclusion that given data should follow a specific functional form, you should output your proposed template in a similar manner as shown above. Make sure to output only one such template. If you don't think there is a specific functional form to look for, do not output anything. ONLY OUTPUT A template IF YOU ARE ABSOLUTELY SURE THAT THE DATA FOLLOWS SOME OBVIOUS FUNCTIONAL FORM.

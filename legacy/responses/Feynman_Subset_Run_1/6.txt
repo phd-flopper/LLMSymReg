@@ -1,0 +1,27 @@
+### Proposed Parameters for PySR Model
+
+```json
+{
+  "maxsize": 13,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+Based on our analysis of the given dataset and the physical context, we have proposed the following constraints to guide the search:
+
+### CONSTRAINTS
+
+- The target function should be a physically meaningful function that describes a wave phenomenon.
+- Each variable must be used at least once in the proposed function.
+- Since x0 and x1 have units of Length, we should avoid applying unary operators to these variables. Instead, we can consider applying unary operators to x2, which is dimensionless.
+- We can expect the function to be a composition of the variables x0, x1, and x2, possibly involving addition, subtraction, multiplication, and division of these variables.
+- We can also expect the function to involve trigonometric functions (sin and cos) to describe wave-like phenomena.
+- Logarithmic and exponential functions may also be present in the function, especially if the relationship between the variables is non-linear.
+
+### Proposed Function Ansatz
+
+['x0 * sin(x1 + x2) / (1 + x2 ^ 2)']
+
+This ansatz follows the dimensionality logic, as x0 and x1 have units of Length, and the sine function remains dimensionless. The denominator involves the sum of 1 and the square of x2, ensuring that the result is dimensionless. The ansatz captures a possible non-linear relationship between the variables and involves trigonometric functions to describe wave-like phenomena.

@@ -1,0 +1,24 @@
+### Parameters for PySR Model
+
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "^"],
+  "unary_operators": ["sin"]
+}
+```
+
+### CONSTRAINTS
+
+In this task, we are studying the field of Optics and wave phenomena. Given the dataset and the units of the variables, our educated guess is that the target function is a physically meaningful expression involving the variables in a way that does not contradict the proposed parameters. 
+
+Since the target variable has units of length (m), we should consider the unit constraints when proposing the function ansatz. 
+
+Also, we can notice that the dataset exhibits complex behavior, suggesting that the target function might not be a simple linear combination of the variables. Therefore, we should allow for more complex expressions by setting maxsize and maxdepth to larger values.
+
+Moreover, given the nature of the dataset, we can infer that trigonometric functions are likely involved in the target function, which explains why we have included 'sin' in the list of unary operators.
+
+### Proposed Ansatz
+
+x0 * (x1 ^ 2 + x2)

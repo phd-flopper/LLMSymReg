@@ -1,0 +1,39 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Given the domain expertise in the field of Electromagnetism, the dataset likely represents a physical system involving electromagnetic forces. The target function, which represents the force, is measured in units of `m / s^2 * kg`. 
+
+Since the `variables` in the dataset represent physical quantities such as charge, electric permittivity, and length, we can infer that the target function should be composed of these quantities in a way that results in the correct units. 
+
+Given the proposed parameters, we can conclude that the equation should not be too complex, with a maximum size of 10 and a maximum depth of 6. 
+
+The binary operators should include the basic arithmetic operators (+, -, *, /) to allow for simple addition and multiplication of the variables. 
+
+The unary operators should include the trigonometric functions (sin, cos) to allow for the incorporation of rotational or periodic effects, which are common in electromagnetic phenomena. 
+
+The removal of other unary operators is justified by the fact that they are not necessary for describing electromagnetic forces. 
+
+The removal of the exponentiation operator (^) is justified by the fact that it is not necessary for describing the given dataset, and it would introduce unnecessary complexity to the equation. 
+
+The removal of the logarithm and exponential functions is justified by the fact that they are not necessary for describing the given dataset, and they would introduce unnecessary complexity to the equation.
+
+The analysis of `x_units` shows that the variables have units of `m^2 / s^2 * kg / V`, `m^2 / s^2 * kg / V`, `m / s^2 * kg / V^2`, and `m`. 
+
+Given the proposed parameters, we can conclude that the equation should not involve any division by a variable that has units of `m`, as this would result in units of `1/m`, which is not physically meaningful.
+
+Therefore, the proposed constraints are:
+
+* The equation should not involve any division by a variable that has units of `m`.
+* The equation should not involve any exponentiation operator (^).
+* The equation should not involve any logarithm or exponential functions.
+* The equation should only involve the basic arithmetic operators (+, -, *, /) and the trigonometric functions (sin, cos).
+
+### ['x0 / x2 + x1 * x3']

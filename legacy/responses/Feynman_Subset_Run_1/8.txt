@@ -1,0 +1,26 @@
+Based on the given dataset and domain expertise in Quantum Mechanics, I propose the following constraints for the PySR model:
+
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 9,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log", "exp"]
+}
+```
+
+### CONSTRAINTS
+
+1. Each `variable` must be used at least once. This is a necessary constraint to ensure that the target function is a function of the input variables.
+2. Since we are studying Quantum Mechanics, we expect the target function to be related to energy, which is a physical quantity with units of `m^2 / s^2 * kg`. Therefore, the final expression should have units of `m^2 / s^2 * kg`.
+3. The input variables `x0` and `x1` have units of `1 / s` and `m^2 / s * kg`, respectively. When applying binary operators to these variables, we need to ensure that the resulting expression has the correct units of `m^2 / s^2 * kg`. For example, when multiplying `x0` and `x1`, the result has units of `m^2 / s^3 * kg`, which is not correct. Therefore, we should limit the binary operators to only addition and subtraction, which do not change the units of the variables.
+4. Since we are not expecting any complex trigonometric or exponential functions in Quantum Mechanics, we can limit the unary operators to only logarithmic functions.
+5. To simplify the search space, we can also limit the maximum depth of the expression tree to 9.
+
+### Proposed Ansatz
+
+Based on the constraints above, a reasonable function ansatz that could capture the dependency between the dataset and the target is:
+
+`[ 'x0 * x1 + x0' ]`
+
+This ansatz assumes that the target function is a simple linear combination of the input variables `x0` and `x1`, which is a common phenomenon in Quantum Mechanics. The multiplication of `x0` and `x1` captures the interaction between the two variables, while the addition of `x0` captures the contribution of each variable separately. This ansatz does not violate any of the proposed constraints and has a reasonable complexity.

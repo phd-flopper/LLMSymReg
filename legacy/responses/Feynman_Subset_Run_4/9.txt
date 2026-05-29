@@ -1,0 +1,28 @@
+### JSON Output Structure:
+```json
+{
+  "maxsize": 12,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the given dataset and the field of study, Quantum mechanics, the constraints that we can propose are:
+
+1. The function should be simple and physically meaningful. This suggests that we should not use very complex equations.
+2. The function should be dimensionally correct. This means that the units of the variables should be preserved in the function.
+3. The function should not contain any unnecessary variables or operators. This means that we should only use the variables ['x0', 'x1', 'x2'] and the operators that are necessary to describe the function.
+4. The function should be symmetric with respect to the variables. This means that if the function is symmetric with respect to 'x0' and 'x1', then the function should be of the form f(x0, x1) = f(x1, x0).
+5. The function should not have any singularities. This means that the function should not be undefined at any value of the variables.
+
+Based on these constraints, we can propose the following analysis of the units:
+
+* The units of the variables are ['s^3 * kg', 's^3 * kg', None]. Since the units of 'x0' and 'x1' are the same, we can propose that the function is symmetric with respect to 'x0' and 'x1'.
+* The units of the target function are 's^3 * kg'. This means that the function should be dimensionally correct and preserve the units of the variables.
+
+Based on these constraints and the analysis of the units, we can propose the following ansatz:
+
+['x0^2 * x1^2 * sin(x2)']

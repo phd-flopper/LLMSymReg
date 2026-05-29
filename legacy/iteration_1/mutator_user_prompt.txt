@@ -1,0 +1,9 @@
+Remember that your collegue "Planner" proposed these constraints: {constraints}.
+Also remember that your other collegue "Critic" proposed these ideas: {ideas}.
+Please consider the following equations: {eqs}.
+Carefully investigate each one of them.
+Based on proposed constraints and ideas, output a list of enhanced equations. Length of the output list must match the number of input equations. Make sure to only output ONE list of equations and nothing more.
+
+Here is an example of the input list: ['x0', 'cos(x0)', 'sin(x0)']. Notice that there are exactly three equations in the list, hence your output list should also contain exactly three elements. Here is an example of your output: ['x0 * x0', 'exp(x0) + cos(x0)', 'sin(x0)']. The last element was left the same since in this example we considered this equation fine as is.
+
+MAKE SURE NOT TO OUTPUT ANYTHING AFTER YOU HAVE WRITTEN THE OUTPUT LIST. 

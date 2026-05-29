@@ -1,0 +1,25 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 5,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the dataset and the field of study (Optics and wave phenomena), we can infer the following constraints:
+
+1. The target function `y` represents a physical quantity with units of length, `m`.
+2. The input variables `x0`, `x1`, and `x2` have units of length (`m`), length (`m`), and dimensionless, respectively.
+3. Since the target function is a physical quantity with units of length, we can only apply operators that preserve the dimensions of the input variables. This means that we can only use the binary operators `+`, `-`, `*`, and `/`, which preserve the dimensions of the input variables.
+4. We can apply trigonometric functions (`sin`, `cos`) to the dimensionless variable `x2`, since these functions preserve the dimensionlessness of the input.
+5. We can apply the logarithmic function (`log`) to a dimensionless quantity, but it would not make sense to apply it to a physical quantity with units of length. Therefore, we can only apply `log` to the dimensionless variable `x2`.
+6. The exponential function (`exp`) and square root (`sqrt`) functions can be applied to physical quantities with units of length, but they would introduce new dimensions that are not present in the target function. Therefore, we cannot apply `exp` and `sqrt` to any of the input variables.
+7. The maximum complexity of the equation is set to 10, which means that the equation can have at most 10 terms, including constants and operators.
+8. The maximum depth of the equation is set to 5, which means that the equation can have at most 5 levels of nesting.
+
+Based on these constraints, we can propose the following function ansatz:
+
+['x0 * x1 * sin(x2)']

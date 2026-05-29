@@ -1,0 +1,26 @@
+```json
+{
+  "maxsize": 14,
+  "maxdepth": 8,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": []
+}
+```
+
+### CONSTRAINTS
+
+Based on the field of Mechanics and the given dataset, we can infer the following constraints:
+
+- The target function is expected to be a function of energy, which is a scalar quantity. Therefore, the composition of variables should result in a scalar quantity.
+- Since we are dealing with Mechanics, we can expect the target function to be related to the kinetic energy of the system.
+- The kinetic energy of an object is given by the equation KE = 0.5 * m * v^2, where m is the mass and v is the velocity. Since velocity is a vector quantity, we can expect the target function to involve the square of the velocity (i.e., v^2).
+- The velocity can be related to the acceleration (a) and time (t) by the equation v = a * t. However, since we do not have time as a variable, we can expect the target function to involve the acceleration instead of the velocity.
+- The acceleration can be related to the force (F) and mass (m) by the equation F = m * a. However, since we do not have force as a variable, we can expect the target function to involve the acceleration directly.
+- The acceleration can be related to the variables x0, x1, and x2 by analyzing the units. The unit of acceleration is m/s^2, and the unit of the target function is m^2/s^2 * kg. Therefore, we can expect the target function to involve the square of the acceleration (i.e., a^2).
+- The mass can be related to the variables x0, x1, and x2 by analyzing the units. The unit of mass is kg, and the unit of the target function is m^2/s^2 * kg. Therefore, we can expect the target function to involve the mass directly.
+
+Based on these constraints, a reasonable function ansatz can be written as:
+
+[x0 * x1^2 + x2^2]
+
+This equation involves the square of the acceleration (x1^2), the square of the length (x2^2), and the mass (x0), which are all physically meaningful quantities. This equation also satisfies the dimensionality logic and does not contain any other letters or units.

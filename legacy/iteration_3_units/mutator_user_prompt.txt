@@ -1,0 +1,26 @@
+Notice that we are working with exactly {num_vars} variables (we will refer to this number by `num_vars`).
+Remember that your collegue "Planner" proposed these `constraints`: {constraints}.
+Also remember that your other collegue "Critic" proposed these `ideas`: {ideas}.
+Please consider the following equations (We will refer to them as `array`): {eqs}.
+
+Carefully investigate each one of them.
+Based on your analyzis of `array` and proposed `constraints` and `ideas`, output a list of enhanced equations. Make sure to only output ONE list of equations and nothing more. You should not output a list which length is higher than that of `array`. Preferably, your output list should contain only the best equations.
+
+By enhancing equations, we first of all assume simplification in terms of equation's length. For example, rounding values like 0.99999817 to 1.0 and always reducing heavily nested operators. 
+However, you should carefully take into account `constraints` and `ideas`. Remember that we have `num_vars` variables: make sure that each equation in your proposed list contains each of them.
+
+Variables always look like x0, x1, and so on. For example, if `num_vars` equals 1, it means that we have only 1 variable x0. If `num_vars` equals 2 then we have 2 variables x0 and x1. If `num_vars` equals 3 then we have variables x0, x1 and x2. So in essence the index of any available variable never exceeds `num_vars` - 1. 
+
+Let's consider some examples.
+
+Suppose, we have `array` ['x0 * sin(x1)', 'cos(cos(cos(cos(x1))))', 'x1 + 0.98172 * x0'].
+Suppose, we have `constraints` that, among other valueable information, specify that all variables should be present in an equation.
+Suppose, we have `ideas` that cosine function is not a promising direction, but sinusoid could be.
+
+Based on all of the above, in this spefic example, your proposal could be to 1) leave the first equation as is, because it doesn't violate `constraints` and `ideas`; 2) reduce nested operators in the second equation, replace `cos` with `sin` as proposed in `ideas` and introduce x0 to equation as required by `constraints`; 3) replace 0.98172 by 1.0.
+
+Hence your output in above situation could be:
+
+['x0 * sin(x1)', 'sin(x1 + x0))', 'x1 + x0']
+
+MAKE SURE NOT TO OUTPUT ANYTHING AFTER YOU HAVE WRITTEN THE OUTPUT LIST. 

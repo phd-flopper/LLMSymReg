@@ -1,0 +1,21 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["cos", "sin"]
+}
+```
+
+### CONSTRAINTS
+
+*   Each variable must be used at least once in the function.
+*   Since `x_units` is not None, we should consider the physical units of each variable when proposing the function ansatz. Specifically, we know that applying operators to physical quantities changes dimension, which means that applying unary operators to physical quantities is physically meaningless.
+*   Since our field of study is Electromagnetism, we should look for a function that involves electric or magnetic fields, charges, velocities, or other relevant quantities.
+*   Given the structure of the data, it's likely that the function is nonlinear and involves some form of combination of the input variables.
+
+Based on these constraints and the domain knowledge of Electromagnetism, a reasonable function ansatz that we are looking for could be:
+
+['(x0 * x4) / x1']
+
+This ansatz features a composition of `variables` that could capture the dependency between the dataset and the target, and it doesn't violate the proposed constraints. The expression involves multiplication, division, and the variables 'x0', 'x1', and 'x4', which are all relevant quantities in Electromagnetism. The expression also doesn't contain any unary operators, which are not physically meaningful in this context.

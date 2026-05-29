@@ -1,0 +1,26 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the dataset and our field of study in Mechanics, we are looking for a physically meaningful function that relates the given variables to the target function. 
+
+The target function is measured in energy units (m^2 / s^2 * kg), which is a product of length and velocity units. The given variables are in units of mass, acceleration, and length. 
+
+Considering the units of the variables and the target function, we can expect the function to be a composition of variables that results in energy units. 
+
+Given the complexity of the dataset, we expect the function to be relatively simple, with a maximum complexity of 10 and a maximum depth of 6. 
+
+Since we are dealing with physical quantities, we should only apply unary operators to dimensionless quantities or compositions of variables that end up having units. In this case, we only need the log unary operator, which can be used to create dimensionless quantities by taking the logarithm of the variables.
+
+Each variable must be used at least once, as we are looking for a physically meaningful function that relates the variables to the target function.
+
+### Proposed Ansatz
+
+['(x0^2 * x1) + (x0 * x2) + x0^2 * x2^2']

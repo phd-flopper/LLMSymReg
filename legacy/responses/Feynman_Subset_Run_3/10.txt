@@ -1,0 +1,21 @@
+```json
+{
+  "maxsize": 17,
+  "maxdepth": 10,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the analysis of the dataset and our domain expertise, we can propose the following constraints:
+
+- Given that `y_units` is Pressure and `x_units` are Temperature, Volume, Boltzmann constant, we expect the function to be dimensionally consistent. Therefore, the function should only involve operations that do not change the dimensionality of the input variables. In this case, the only dimension-preserving operations are addition, subtraction, multiplication, and division.
+- The `x_units` contain Temperature, which is a dimensionful quantity. As such, we expect that trigonometric functions like `sin` and `cos` may be applied to this quantity, but we should be cautious in applying other operations like `log` and `exp` to `x_units`. This is because these operations may change the dimensionality of the input variable.
+- Given the physical nature of the problem, we expect the function to be smooth and continuous over the range of the input values. This means that we should avoid using operations like `^` that can introduce discontinuities.
+- Based on the range of the input values, we expect the function to be monotonic. This means that we should avoid using operations like `sin` and `cos` that can introduce non-monotonic behavior.
+
+Considering these constraints, we can propose the following function ansatz:
+
+[x0 * x1^x2 * x3^x1 + x0^x2 * x1^x3]

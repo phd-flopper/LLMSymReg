@@ -1,0 +1,22 @@
+### Proposed Constraints
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 12,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Given that our dataset is from the field of Optics and wave phenomena, we should expect a physically meaningful equation. Our primary goal is to uncover the governing function for this dataset, and we expect it to be simple. From the given dataset, we can see that the target function `y` seems to be related to the variables `x0`, `x1`, and `x2`. However, given the range of `x0` and `x1` is between 1 and 5, and `x2` is dimensionless, we can expect that `y` would be a function that depends on `x0` and `x1` and possibly a function of `x2`. 
+
+Given that the `y_units` is 'Length': 'm' and `x_units` is [{'Length': ['m']}, {'Length': ['m']}, {'Dimensionless': None}], we can expect that the governing equation should add up to 'Length': 'm'. We should expect the equation to be a combination of addition, subtraction, multiplication, and possibly division, given that our variables have different units and the target function is measured in meters.
+
+We do not expect the governing equation to involve any trigonometric functions like `sin` and `cos` without a dimensionless or a composition of some variables that ends up having units. However, `log` and `exp` functions would be too complex and not physically meaningful in this context. Therefore, we should not expect any `log` and `exp` functions in our equation. We should also not expect any divisions as it would change the dimension of our variables.
+
+We expect our governing equation to involve some combination of `x0` and `x1` and possibly some function of `x2`. We expect our equation to be a combination of addition, subtraction, multiplication, and possibly some functions of `x2`.
+
+### Proposed Ansatz
+['x0 * x1 * sqrt(x2)']

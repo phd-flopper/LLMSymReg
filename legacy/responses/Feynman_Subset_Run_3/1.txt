@@ -1,0 +1,23 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "*", "^"],
+  "unary_operators": []
+}
+```
+
+### CONSTRAINTS
+
+As we are studying the field of Mechanics, we should only consider equations that describe the relationship between physical quantities, such as force, acceleration, velocity, and position.
+
+Since the target function is measured in 'Force' (m / s^2 * kg), we should only consider equations that produce a force as a result of combining the input variables x0 and x1.
+
+The variables x0 and x1 have units of Dimensionless and Force (m / s^2 * kg), respectively. When combining these variables, we should ensure that the resulting equation has units of Force.
+
+We should also consider the fact that the dataset is sampled from a range of values for x0 and x1, which suggests that the target function may be a simple polynomial or power-law relationship between the input variables.
+
+Finally, since the problem involves symbolic regression, we should avoid overfitting by keeping the number of parameters in the equation relatively small.
+
+### Proposed ansatz
+[x0 + x1^2]

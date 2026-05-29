@@ -1,0 +1,26 @@
+```json
+{
+  "maxsize": 17,
+  "maxdepth": 9,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+The governing function should be simple and physically meaningful. It should follow the laws of physics, specifically the principles of optics and wave phenomena. Given the variables represent velocity and frequency, we should expect the function to be in the form of a harmonic or wave-like function, possibly involving trigonometric functions.
+
+To avoid applying unary operators to physical quantities, we should only apply them to dimensionless quantities or composite expressions that result in dimensionless quantities. Since we are dealing with frequencies and velocities, which both have units, we should expect the function to involve some form of composition that results in a dimensionless quantity.
+
+Considering the variables represent velocity and frequency, we can expect the function to involve some form of multiplication, division, or exponentiation that results in a dimensionless quantity.
+
+We should also consider the range of the variables and the target function. The variables are sampled from a range of [3, 10] for velocity and [1, 5] for frequency. The target function is measured in frequency, which is a dimensionless quantity. This suggests that the function may involve some form of ratio or proportionality between the variables.
+
+Therefore, we can propose the following constraints:
+
+* The function should be a ratio or proportionality between the variables, possibly involving multiplication, division, or exponentiation.
+* The function should involve some form of trigonometric function, possibly sin or cos, to capture the wave-like behavior.
+* The function should result in a dimensionless quantity, specifically frequency.
+
+['x0*x1**2 + sin(x2)']

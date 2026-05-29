@@ -1,0 +1,29 @@
+### Proposed Constraints in JSON Format
+
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 8,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": []
+}
+```
+
+### Constraints
+
+Based on the given dataset and domain expertise in Mechanics, we propose the following constraints:
+
+- The `maxsize` should be set to 15 to allow for complex equations that can capture the dependency between the dataset and the target.
+- The `maxdepth` should be set to 8 to prevent the search space from becoming too large and to keep the equation tree from becoming too complex. This is a reasonable value given the `maxsize` and the domain expertise in Mechanics.
+- The `binary_operators` should include all the basic arithmetic operators, as they are essential in Mechanics for modeling physical systems.
+- The `unary_operators` should be empty, as applying unary operators to physical quantities would change their dimension and is physically meaningless.
+- Each `variable` must be used at least once in the equation. This is a reasonable constraint, as we are trying to model a relationship between the input variables and the target variable.
+- Given that the target variable `y` is measured in force (m/s^2 * kg) and the input variables `x0` and `x1` have units of Dimensionless and Force (m/s^2 * kg) respectively, we can compose `x1` with `x0` to create a physically meaningful expression.
+
+### Proposed Function Ansatz
+
+Based on the constraints and the domain expertise in Mechanics, a reasonable function ansatz that could capture the dependency between the dataset and the target is:
+
+[x1 * x0^2 + x1^2]
+
+This ansatz composes the input variables `x0` and `x1` in a physically meaningful way, using the units of the variables to create a dimensionally correct expression. The ansatz also includes basic arithmetic operators, which are essential in Mechanics for modeling physical systems.

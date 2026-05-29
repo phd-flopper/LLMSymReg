@@ -1,0 +1,36 @@
+### Proposed Constraints
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 8,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Based on our analysis of the dataset and domain expertise in the field of Optics and wave phenomena, we propose the following constraints:
+
+* The function should be simple and physically meaningful. This suggests that we should not allow the model to become too complex, so we set `maxsize` to 15.
+* The maximum depth of the equation's expression tree should be limited to 8, as we expect the function to be relatively simple and not too complex.
+* The binary operators should include all possible options, as we expect the function to involve addition, subtraction, multiplication, division, and exponentiation.
+* The unary operators should only include trigonometric functions, as these are commonly used in Optics and wave phenomena. We exclude logarithmic, exponential, and square root functions, as these are less common in this field.
+
+### Analysis of x_units
+
+The units of the variables are: ['Velocity': ['m / s']], ['Velocity': ['m / s']], ['Frequency': ['1 / s']]. 
+
+When performing operations on quantities with units, the resulting units must be physically meaningful. For example, if we multiply two quantities with units of 'm / s' and 'm / s', the resulting unit would be 'm^2 / s^2', which is not a unit of velocity. Therefore, we should only allow operations between quantities with the same units.
+
+In this case, the units of the variables are all different, so we cannot perform operations between them directly. However, we can propose a composition of the variables that would result in units that are physically meaningful.
+
+### Proposed Ansatz
+
+Based on our analysis of the dataset and domain expertise, we propose the following ansatz:
+
+[(x0 * x1) / x2] * sin(x1)
+
+This ansatz captures the dependency between the dataset and target by combining the variables in a way that results in a physically meaningful unit of frequency (1/s). The sine function is used to introduce a non-linear relationship between the variables, which is common in Optics and wave phenomena. The resulting equation is a simple and physically meaningful function that we expect to capture the behavior of the dataset.
+
+['function']

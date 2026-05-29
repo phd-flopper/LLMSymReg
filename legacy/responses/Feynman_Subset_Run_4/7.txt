@@ -1,0 +1,30 @@
+Based on the provided dataset and domain expertise, I propose the following constraints for the PySR model:
+
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+Here's my reasoning for these constraints:
+
+* `maxsize`: The maximum complexity of the equation should be around 15, which is higher than the default value of 7 and still relatively low.
+* `maxdepth`: I propose reducing the maximum depth of the equation's expression tree from 12 to 6. This is because the dataset appears to be relatively simple, and a lower maximum depth will help to prevent overfitting.
+* `binary_operators`: I remove the exponentiation operator (`^`) from the list of available binary operators, as it is not commonly used in simple equations. I also remove the division operator (`/`) only when the numerator and denominator have the same units. However, since this is not the case here, the division operator is left.
+* `unary_operators`: I remove the `exp` and `log` operators from the list of available unary operators, as they are not commonly used in simple equations related to wave phenomena. I also remove the `sqrt` operator, as it would not be physically meaningful to take the square root of a physical quantity with units. The remaining operators (`sin` and `cos`) are commonly used in equations related to wave phenomena.
+
+### CONSTRAINTS
+
+Based on the field of study (Optics and wave phenomena), we can propose the following constraints:
+
+* The target function `y` represents a frequency, so we expect the final equation to have units of `1/s`.
+* The independent variables `x0`, `x1`, and `x2` represent velocity, velocity, and frequency, respectively, so we expect the final equation to involve combinations of these variables.
+* We can assume that the equation is relatively simple, as indicated by the dataset.
+* We can also assume that the equation involves trigonometric functions (`sin` and `cos`) and possibly some simple algebraic operations.
+
+### Proposed Ansatz
+
+['sin(x0*x1) + sin(x2)']

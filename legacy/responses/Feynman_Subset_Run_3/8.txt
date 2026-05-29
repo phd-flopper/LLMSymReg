@@ -1,0 +1,30 @@
+### Proposed Constraints
+
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 9,
+  "binary_operators": ["+", "*", "^"],
+  "unary_operators": []
+}
+```
+
+### CONSTRAINTS
+
+* The maximum complexity of the equation should be around 15 to allow for a reasonable number of parameters.
+* The maximum depth of the equation's expression tree should be set to 9 to prevent the equation from becoming too complex.
+* Since the target function is a physical observable, we should not apply unary operators to physical quantities. Therefore, we set `unary_operators` to an empty list.
+* We choose the binary operators '+' and '*' as they are the most common and will allow the model to capture both additive and multiplicative relationships between the variables.
+* The choice of 'binary_operators' and 'unary_operators' is based on the domain expertise in Quantum Mechanics, where physical quantities are often combined using addition and multiplication.
+
+### Analysis of `x_units`
+
+The variables `x0` and `x1` have units of 'Frequency' and 'Angular momentum', respectively. In Quantum Mechanics, the angular momentum is related to the frequency of a wave. Therefore, a reasonable ansatz for the function should involve a composition of `x0` and `x1` that captures this relationship.
+
+### Proposed Ansatz
+
+We propose the following ansatz for the function:
+
+['x0 * x1^2']
+
+This ansatz captures the relationship between the frequency and angular momentum of a wave, which is a fundamental concept in Quantum Mechanics. The ansatz also satisfies the dimensionality logic, as the product of two physical quantities with different units results in a physical quantity with units that are consistent with the target function.

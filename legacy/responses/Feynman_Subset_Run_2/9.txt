@@ -1,0 +1,25 @@
+### Proposed Constraints
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+Based on the given dataset, we can observe that the `x_units` variables have units of Light intensity and Dimensionless, while the `y_units` target function has units of s^3 * kg. 
+
+Since applying operators to physical quantities changes dimension, we can only apply unary operators to dimensionless variables or to variables that are compositions of some variables that end up having units. In this case, we can safely apply 'sin' and 'cos' operators to variables 'x1' and 'x2' which are dimensionless.
+
+We can also observe that the target function has a relatively simple structure, with most values ranging between 0 and 10. This suggests that the equation should not be too complex, and we can set `maxdepth` to 6 to limit the maximum depth of the equation's expression tree.
+
+We can also remove the '^' operator from the `binary_operators` list, as it is unlikely that the equation will require exponentiation.
+
+In terms of `binary_operators`, we can safely remove the '/' operator, as it is unlikely that the equation will require division. We can also remove the '*' operator, as it may result in complex expressions that are difficult to interpret physically.
+
+Finally, we can propose the following function ansatz:
+
+['x0 * sin(x1) + x2 * cos(x1)']
+This ansatz captures a simple dependency between the variables, with `x0` and `x1` influencing the output in a sinusoidal manner, and `x2` influencing the output in a cosinusoidal manner. This ansatz also follows the dimensionality logic, as `x0` and `x2` have units of Light intensity, and `x1` is dimensionless.

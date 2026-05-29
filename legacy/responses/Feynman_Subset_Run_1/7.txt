@@ -1,0 +1,30 @@
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 3,
+  "binary_operators": ["+", "*", "/"],
+  "unary_operators": []
+}
+```
+
+### CONSTRAINTS
+
+We are studying the field of Optics and wave phenomena. Given the dataset, we can infer that the `target` function is a frequency-dependent function, as the units of `y_units` are '1 / s'. The `variables` represent physical quantities: `x0` and `x1` have units of velocity ('m / s'), and `x2` has units of frequency ('1 / s'). 
+
+Given this information, applying unary operators to physical quantities such as `x0` and `x1` would change their dimension, making it physically meaningless. Therefore, we set `unary_operators` to an empty list. 
+
+Additionally, we set `maxdepth` to 3, as the problem doesn't seem to require complex expressions, and it's unlikely that the `target` function would have a more complex structure. 
+
+We set `binary_operators` to `["+", "*", "/"]`, as we believe that the `target` function is a sum of products of the `variables`, or a simple division of some of the `variables`. 
+
+We also set `maxsize` to 15, which is an integer value strictly above 7 and lower than 20, as per the problem requirements. 
+
+The constraints for the task are:
+
+- Each `variable` must be used at least once.
+- The `target` function is a frequency-dependent function.
+- The `target` function should only contain `variables` from ['x0', 'x1', 'x2'] and operators, and should not contain any other letters or units.
+- The `unary_operators` list is empty.
+- The `binary_operators` list contains only the operators "+", "*", and "/".
+
+['x0*x1 + x2']

@@ -1,0 +1,33 @@
+Here are the points of the `dataset` {X}, and here are the respective values of underlying `function` {y} governing the underlying dependency. Notice that `dataset` has shape {X.shape}. It means that it has exactly {X.shape[1]} `variables` and {X.shape[0]} samples for each variable. `dataset` variables are sampled from some distribution in range {dom}. 
+
+`variables` have corresponding units `x_units`: {X_units} and the target function is measured in `y_units` {y_units}. If `x_units` is None, disregard the following information. 
+Otherwise, f `x_units` is not None, it means that we are dealing with measured variables. If `x_units` is not None, it is a python dictionary with a form of 'Unit name': ['SI units']. If `x_units` is not None, any proposed composition of `dataset` points should equal `y_units`. 
+Let's take a look at some example cases.
+1) `x_units` is None. In this case, we are dealing with dimensionless data, and any composition of 
+`variables` is acceptable.
+2) There is only 1 `variables`, `x_units` equals to 'Mass': ['kg'] and `y_units` equals to 'Mass': ['kg']. In this case, any composition of `variables` must equal `function` units. Specifically, in this case, it means that `function` is likely just some linear function of `variables`, since otherwise units of `dataset` and `target` will not match.
+3) There are only 2 `variables`, `x_units` equals to 'Length': ['m'], 'Time': ['s'] and `y_units` equals to 'Velocity': ['m  / s']. In other words, if variables are indexed by `dataset` columns, x0 variables represent length and x1 represents time and overall function represents velocity. Specifically, in this case, it means that `function` definitely must feature a division of `variables`, since otherwise units of `dataset` and `target` will not match. A function ansatz could look like this: 'x0 / x1'.
+4) There are 3 `variables`, `x_units` equals to 'Length': ['m'], 'Length': ['m'], 'Dimensionless': None and `y_units` equals to 'Dimensionless': None. Specifically in this case, since `function` is dimensionless and x0 and x1 measure length, they must cancel each other out; since x2 is dimensionless just like `function`, it can be feautured in any way. A function ansatz could look like this `x2 * (x1 / x0)`.
+
+Our task is to find a function that takes dataset points as input and outputs the correct values. In essence, to uncover the true form of `function`. Please analyze the given data. Based on your analysis, please propose constraints to best guide the search. The search will be conducted through a PySR model. Specifically, I need you to propose correct values for these parameters of the PySR model: {params}.
+Your output MUST be a single, valid JSON object containing the aforementioned keys and their respective correct values. Be very mindful with proposed constraints, as once you propose them, we cannot change them.
+You should only generate one instance of the JSON object.
+Here is a small example:
+### JSON Output Structure:
+```json
+{{
+  "maxsize": your proposed value here,
+  "unary_operators": ["your proposed value here"],
+  "binary_operators": ["your proposed value here"]
+}}
+
+Note that "maxsize" should not be lower than 20, unless you suspect that f(x) is extremely simple, like f(x) := x**2 or sqrt(x). 30 is usually a good enough value. Note that if there are more than 5 `variables`, then you should certainly increase the value to up to 66.
+
+Note that for "binary_operators" you should typically only consider ["+", "*", "-", "/"]. However, if you strongly feel like higher powers (larger than cube) are in place, you can expand this list with "^" (so the result is ["+", "*", "-", "/", "^"]).
+
+Note that for "unary_operators" you should typically only consider ["sin", "cos", "log", "exp"]. You can expand it with other trigonometric functions (namely, "tan"), with "sqrt", with "square" (which is equal to squaring a variable; add this if you suspect there are squared variables), with "cube" (which is equal to taking a cube of a variable; add this if you suspect there are squared variables).
+
+After your JSON object output, I want you to generate some constraints for the task in the textual form. These constraints should not contradict the parameters that you have proposed. For example, state that each equation is required to feature all variables. Also, if `x_units` is not None, include your analysis of this too. You should write your proposed constraints and reasoning for them after first writing ### CONSTRAINTS.
+
+Additionally, I need you to propose a `function` ansatz, that considers all of your constraints. It should feature some reasonable composition of `variables` that could capture the dependency between `dataset` and `function` and that doesn't violate your proposed constraints. For example, if we have 2 `variables`, the ansatz could be 'x0 ^ x1' or 'sin(x0) * cos(x1)'. Provide only one ansatz. Do not include units in this ansatz, only variables. YOU SHOULD NEVER PROPOSE AN ANSATZ THAT HAS MORE VARIABLES THAN THE INPUT DATA.
+If `x_units` is not None, this ansatz must strictly follow dimensionality logic. Provide your reasoning for the ansatz and then output ansatz on the very last line of your response. MAKE SURE THAT THE LAST LINE OF YOUR RESPONSE CONSISTS OF ONLY THE PROPOSED ANSATZ.

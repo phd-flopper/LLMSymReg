@@ -1,0 +1,22 @@
+### Proposed Constraints for PySR Model
+```json
+{
+  "maxsize": 12,
+  "maxdepth": 8,
+  "binary_operators": ["+", "*", "/"],
+  "unary_operators": ["sin"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the given problem, we are dealing with a thermodynamic system. The target function represents a pressure, which is typically a function of temperature, volume, and other thermodynamic properties. Therefore, we expect the solution to involve one or more of the variables `x1`, `x2`, and `x3`. The `x0` variable appears to be dimensionless, which suggests that it might be a scaling factor or a constant in the equation.
+
+Given the physical context, we expect the solution to be a function that is monotonic in temperature (i.e., `x1`) and possibly has a non-trivial dependence on volume (i.e., `x2` and `x3`). We also expect the solution to involve some form of nonlinear relationship between the variables.
+
+Since the `x_units` list contains a variable with a unit of temperature, we need to ensure that any proposed solution is dimensionally consistent with this unit. This means that any operations involving temperature should be done using the `+` or `*` operators, which preserve the unit of temperature.
+
+Finally, we expect the solution to be a relatively simple function that can be captured by a low-degree polynomial or a simple trigonometric function. This suggests that we should limit the maximum size and depth of the solution to a relatively small value.
+
+### Proposed Ansatz
+['x1 * x2 * x3 * sin(x0)']

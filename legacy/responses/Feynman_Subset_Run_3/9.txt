@@ -1,0 +1,24 @@
+### JSON Output Structure
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 6,
+  "binary_operators": ["+", "*", "^"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the given dataset and domain expertise, I propose the following constraints:
+
+1. The target function should be physically meaningful and simple. This suggests that we should avoid overly complex expressions and focus on operators that are physically meaningful.
+2. Since the dataset represents a physical system, we should avoid applying unary operators to physical quantities unless it is a trigonometric function (e.g., sin, cos). This is because applying operators to physical quantities changes dimension, which is physically meaningless.
+3. The maximum complexity of the equation (maxsize) should be strictly above 7 and lower than 20. This allows for some complexity in the equation while keeping it reasonable.
+4. The maximum depth of the equation's expression tree (maxdepth) should be lower than 3 and higher than 6. This ensures that the equation is not overly complex and can still capture the dependencies between the variables.
+5. The binary operators should include only those that are physically meaningful and necessary. In this case, we include "+" and "*" for basic arithmetic operations, and "^" for exponentiation.
+6. The unary operators should include only trigonometric functions (sin, cos) that are physically meaningful in the context of the problem.
+
+### Proposed Function Ansatz
+
+['x0 * sin(x1) + x2^x0']

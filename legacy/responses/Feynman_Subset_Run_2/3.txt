@@ -1,0 +1,40 @@
+### Proposed PySR Model Parameters
+
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Given that we are studying the field of Electromagnetism, we are looking for a function that models the interaction between electric charges and fields. The target function is measured in units of Force (m / s^2 * kg), and the input variables are Charge (m^2 / s^2 * kg / V) and Electric field (1 / m * V). 
+
+Since the target function is a physical quantity, we should avoid applying unary operators to the input variables, as this would change their dimension. However, we can apply unary operators to dimensionless variables if they are necessary for the function.
+
+The binary operators should include the basic arithmetic operations (+, -, *, /), as they are essential for building a complex function.
+
+Considering the simplicity of the problem, we can limit the maximum complexity of the equation to 15 and the maximum depth to 6. This should allow the model to find a suitable function that captures the dependency between the input variables and the target function.
+
+### Analysis of `x_units`
+
+The input variable 'x0' represents Charge, which is measured in units of m^2 / s^2 * kg / V. The input variable 'x1' represents Electric field, which is measured in units of 1 / m * V.
+
+Given that the target function is measured in units of Force (m / s^2 * kg), we can expect the function to involve some composition of Charge and Electric field that results in a quantity with the same units.
+
+### Proposed Function Ansatz
+
+Based on the analysis and the proposed PySR model parameters, a reasonable function ansatz that captures the dependency between the input variables and the target function is:
+
+[x0 * x1^2]
+
+This ansatz involves a simple composition of the input variables, which results in a quantity with the same units as the target function. The exponentiation of x1 represents the squared electric field, which is a common operation in electromagnetism.
+
+The ansatz does not involve any unary operators, as they would change the dimension of the input variables. The binary operators used are the basic arithmetic operations (+, -, *, /), which are essential for building a complex function.
+
+The final ansatz is:
+
+[x0 * x1^2]

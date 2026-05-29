@@ -1,0 +1,25 @@
+### Proposed Parameters for PySR Model
+
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on our field of study in Mechanics and the structure of the dataset, we can propose the following constraints:
+
+1. The target function should be a physically meaningful function that describes a relationship between the input variables ['x0', 'x1'] and the output variable 'y'. The function should not be a constant, and the input variables should have a non-trivial relationship with the output variable.
+2. Since 'x1' has units of 'm / s^2 * kg', any composition of 'x1' with other variables or operators should result in a dimensionally consistent expression. This means that we should not apply any unary operators to 'x1' unless the resulting expression has units that are consistent with the output variable 'y'.
+3. The target function should not involve any complicated trigonometric functions or exponential functions. Instead, we should focus on linear, quadratic, and polynomial relationships between the input variables and the output variable.
+4. Since the dataset involves a relationship between two input variables, the target function should be a function of both 'x0' and 'x1'. We should not propose a function that depends on only one of the input variables.
+
+### Proposed Ansatz
+
+['x0 * x1 + sin(x0) + log(x1)']
+
+This ansatz captures a non-trivial relationship between the input variables 'x0' and 'x1' and the output variable 'y'. The composition of 'x0' and 'x1' with the '+' operator and the unary operator 'sin' and 'log' results in a dimensionally consistent expression. The ansatz also captures the possibility of a linear or quadratic relationship between the input variables and the output variable.

@@ -1,0 +1,24 @@
+### Proposed Constraints for the PySR Model
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 3,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": []
+}
+```
+
+Given the dataset and the field of study (Thermodynamics), the following constraints are proposed:
+
+### CONSTRAINTS
+
+* The function must be dimensionally consistent and follow the standard rules of dimensional analysis.
+* The target function is measured in pressure, so the proposed function must equal this unit.
+* Since the target function is measured in pressure, we expect the function to be a function of the input variables that would yield pressure as a result. In thermodynamics, pressure can be obtained by dividing force by area. However, we do not have force or area as variables, but we have volume, temperature, and time as variables.
+* Assuming that the force is a function of temperature and/or time, and area is a function of volume, we can propose a function that combines these variables to yield pressure.
+* Since the dataset has a limited range of values, it is likely that the function is a simple combination of the input variables.
+* The function must use each variable at least once, as specified by the problem statement.
+
+### Proposed Function Ansatz
+
+['1/(1/3*x1 + x2^3*x3 + x0^2*x2)']

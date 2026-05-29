@@ -1,0 +1,24 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Given that we are studying the field of Optics and wave phenomena, we can expect the target function to be related to some physical property of waves, such as frequency, wavelength, or amplitude. Since the variables `x0`, `x1`, and `x2` have units of length, dimensionless quantity, and length, respectively, we can expect the target function to be a function of these quantities.
+
+We will assume that the function is a function of the spatial variables `x0` and `x1`, and is independent of `x2`. This is a reasonable assumption since the target function does not seem to depend on `x2`.
+
+We will also assume that the function is a simple function that can be represented by a polynomial or a trigonometric function of the spatial variables.
+
+Since the target function is measured in units of length, we can expect the function to be a function of the spatial variables that has units of length.
+
+Considering these constraints, we can propose the following function ansatz:
+
+['sin(x0) * x1']
+
+This ansatz captures the dependency between the dataset and the target function, and is consistent with the constraints that we have proposed.

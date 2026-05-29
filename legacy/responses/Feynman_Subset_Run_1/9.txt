@@ -1,0 +1,30 @@
+### JSON Output Structure:
+```json
+{
+  "maxsize": 13,
+  "maxdepth": 8,
+  "binary_operators": ["+", "-", "*", "^"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the field of study - Quantum mechanics - and the given dataset, we can propose the following constraints:
+
+* The target function represents some physical quantity, which is a function of the given variables `x0`, `x1`, and `x2`.
+* Each variable must be used at least once in the target function.
+* Since `x2` has units of 'Dimensionless', we cannot apply any binary operators to it that would change its dimension. However, we can use `x2` as an argument for unary operators like `sin`, `cos`, `log`, `exp`, and `sqrt`.
+* The target function should be a simple and physically meaningful function of the given variables.
+* Since the `x_units` list contains a dictionary with a 'Dimensionless' key, we can assume that `x2` is a dimensionless quantity.
+
+Based on these constraints, we can propose the following constraints for the PySR model:
+
+* Each variable must be used at least once in the target function.
+* The target function should be a function of `x0`, `x1`, and `x2`.
+* We can use `x2` as an argument for unary operators like `sin`, `cos`, `log`, `exp`, and `sqrt`.
+* We can use the binary operators `+`, `-`, `*`, and `^` to combine the variables.
+
+### Proposed ansatz:
+
+['x0^x2 + x1*x2^x0']

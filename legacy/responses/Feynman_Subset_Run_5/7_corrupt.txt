@@ -1,0 +1,23 @@
+### JSON Output Structure
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+* Based on the provided dataset and domain knowledge of optics and wave phenomena, we expect the target function to be a simple and physically meaningful model of a wave phenomenon.
+* Since the `x_units` list contains ['Velocity': ['m / s']], ['Velocity': ['m / s']], {'Frequency': ['1 / s']} and the `y_units` dictionary contains {'Frequency': '1 / s'}, we can infer that the target function is related to frequency and must be dimensionally consistent with '1 / s'.
+* Therefore, we expect the proposed ansatz to be a function that captures the dependency between the input variables and the output frequency.
+* We also expect the ansatz to be a composition of the input variables that does not violate the dimensional consistency of the units.
+* Based on the given dataset and the domain knowledge of optics and wave phenomena, we can propose the following constraints:
+	+ The target function is a function of the input variables `x0`, `x1`, and `x2`.
+	+ The target function is related to frequency and must be dimensionally consistent with '1 / s'.
+	+ The target function is a simple and physically meaningful model of a wave phenomenon.
+
+### Proposed Ansatz
+['sin(x0 * x1 * x2) / (x0 * x1)']

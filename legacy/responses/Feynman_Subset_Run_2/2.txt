@@ -1,0 +1,29 @@
+### Proposed PySR Model Parameters
+
+```json
+{
+  "maxsize": 14,
+  "maxdepth": 5,
+  "binary_operators": ["+", "-", "*", "/", "^"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Considering the field of electromagnetism and the given dataset, we can propose the following constraints:
+
+1. The target function represents a physical quantity, specifically a force, measured in units of m/s^2 * kg.
+2. The input variables are physical quantities with units: ['x0', 'x1', 'x2', 'x3'].
+3. The variables have corresponding units: x_units.
+4. The function should be a reasonable composition of the input variables that captures the dependency between the dataset and the target.
+5. Since the dataset is sampled from a distribution in a range of [1, 5] for each variable, the function should be reasonably smooth and not have sudden changes within this range.
+6. Given the physical context, the function should not contain any complex or exotic mathematical operations.
+7. The function should be dimensionally consistent, meaning that the units of the output should match the units of the target.
+8. Since the target function is a force, it is likely related to electric or magnetic fields, which are related to the input variables.
+9. The function may involve simple mathematical operations such as addition, subtraction, multiplication, division, and exponentiation.
+10. The function may involve trigonometric functions such as sine and cosine, but only if the input variables are dimensionless or have units that can be manipulated to produce dimensionless quantities.
+
+### Proposed Function Ansatz
+
+['(x0 + x1) * (x2 + x3)^2 * sin(x0 * x1)']

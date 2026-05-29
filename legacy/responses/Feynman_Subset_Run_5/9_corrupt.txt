@@ -1,0 +1,24 @@
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 12,
+  "binary_operators": ['+', '-', '*', '/'],
+  "unary_operators": ['sin', 'cos', 'log']
+}
+```
+
+### CONSTRAINTS
+
+Based on the given dataset and domain expertise in Quantum mechanics, I propose the following constraints:
+
+1. Since we are studying the field of Quantum mechanics, the target function is expected to be a physical quantity with SI units.
+2. The target function is measured in 's^3 * kg', which suggests that it might be related to energy or momentum.
+3. The input variables ('x0', 'x1', 'x2') have units of 's^3 * kg', 's^3 * kg', and 'Dimensionless' respectively. This suggests that the function might involve some kind of interaction between the input variables.
+4. Given the units of the input variables, we can expect the function to involve some kind of combination of the input variables that results in a physical quantity with SI units.
+5. Since the function is related to Quantum mechanics, we can expect it to involve some kind of non-linear relationship between the input variables.
+
+Based on these constraints, we can expect the target function to be a non-linear combination of the input variables that results in a physical quantity with SI units.
+
+### Proposed ansatz
+
+['x0 * x1 * cos(x2)']

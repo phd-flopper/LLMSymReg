@@ -1,0 +1,24 @@
+### JSON Output Structure:
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 10,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the domain expertise of Electromagnetism, we expect the governing function to be physically meaningful. The `unary_operators` should be limited to trigonometric functions as applying other unary operators to physical quantities would change dimension. 
+
+For `binary_operators`, we can assume that the function is likely to involve multiplication and addition, but subtraction and division might be needed as well. However, considering the complexity of electromagnetism, it's unlikely that the function involves exponentiation. 
+
+The `maxsize` should be high enough to allow for complex functions but not so high that it overfits the data. A value of 15 seems reasonable. The `maxdepth` should be lower than `maxsize` and higher than 3 to allow for moderate complexity. A value of 10 seems reasonable.
+
+Lastly, `x_units` indicates that the variables involve physical quantities. Therefore, we should analyze the units to see if we can eliminate some binary operators. For instance, since `x0`, `x1`, and `x3` involve physical quantities, we can assume that the function might involve multiplication and addition but not subtraction or division. However, since `x2` and `x4` involve `m^2 * s * V` and `m / s` respectively, we can assume that the function might involve multiplication and division. 
+
+However, given the complexity of electromagnetism, we cannot eliminate any binary operators confidently. Therefore, we should include all possible binary operators.
+
+### ANSATZ
+['x0 * x1^2 * x2 + x3 * x4']

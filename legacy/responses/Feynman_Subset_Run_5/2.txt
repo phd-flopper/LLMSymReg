@@ -1,0 +1,30 @@
+### JSON Output Structure:
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the analysis of the dataset and domain expertise in the field of Electromagnetism, we propose the following constraints:
+
+* The target function `y` represents a force, which is measured in `m / s^2 * kg`. Therefore, any proposed composition of `dataset` points should equal `y_units`.
+* Since we are working with physical quantities, we should avoid applying unary operators to physical quantities. Therefore, we remove `exp` and `sqrt` from the list of unary operators.
+* We also remove `^` from the list of binary operators, as it is not commonly used in Electromagnetism and could lead to unnecessary complexity.
+* The maximum depth of the equation's expression tree should be limited to 6 to prevent overfitting and ensure that the equation is physically meaningful.
+
+### Proposed Ansatz
+
+Based on the analysis of the dataset and domain expertise in the field of Electromagnetism, we propose the following ansatz:
+
+The target function `y` represents a force that is proportional to the square of the electric field and inversely proportional to the square of the distance between the charges. Therefore, we expect the ansatz to feature a composition of `x0`, `x1`, `x2`, and possibly `x3`.
+
+Given the units of the variables, we can propose the following ansatz:
+
+['(x0 * x1) / (x2^2 * x3)']
+
+This ansatz follows the dimensionality logic and captures the expected dependency between the dataset and the function. The square of the electric field is represented by `(x0 * x1)`, and the inverse square of the distance is represented by `x2^2 * x3`.

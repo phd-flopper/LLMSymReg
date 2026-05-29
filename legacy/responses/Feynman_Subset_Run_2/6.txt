@@ -1,0 +1,27 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 7,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "log"]
+}
+```
+### CONSTRAINTS
+
+Based on the problem of studying wave phenomena in the field of Optics, we can propose the following constraints:
+
+1. The target function should be physically meaningful. This means that the final expression should not contain any dimensionless variables or quantities that are not expressible in terms of the given variables.
+
+2. The expression should be dimensionally consistent. This means that the units of the variables should be properly handled, and the final expression should have the same units as the target function.
+
+3. We can assume that the target function is a relation between the variables, and not a function of a function. This means that we can ignore any unary operators that are functions of functions, such as exp or sqrt.
+
+4. We can assume that the target function is a simple relation between the variables, and not a complex non-linear relation. This means that we can ignore any binary operators that are not commonly used in Optics, such as ^.
+
+5. We can assume that the target function is a function of the variables, and not a function of any external parameters. This means that we can ignore any unary operators that take external parameters, such as log.
+
+6. We can assume that the target function is a smooth function of the variables, and not a discontinuous function. This means that we can ignore any binary operators that are not commonly used in Optics, such as the floor or ceiling functions.
+
+7. Since `x_units` is not None and it contains a non-dimensionless unit 'Length' with corresponding unit 'm', we can assume that x0, x1 and x2 are physical quantities with units of 'm' and that target function is also measured in the same unit 'm'.
+
+['x0*x1/x2 + sin(x1/x0) + cos(x0)']

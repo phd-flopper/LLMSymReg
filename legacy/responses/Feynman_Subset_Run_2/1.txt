@@ -1,0 +1,29 @@
+```json
+{
+  "maxsize": 13,
+  "maxdepth": 6,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": []
+}
+```
+
+### CONSTRAINTS
+
+Given that the target function is measured in 'Force' and the variables 'x0' and 'x1' have units 'Dimensionless' and 'Force' respectively, the target function cannot contain any unary operators applied to physical quantities. Therefore, I propose that the list of unary operators be empty.
+
+The dataset spans two dimensions: 'x0' and 'x1', and we are interested in finding a function that relates these two variables to the target function. Given the units of the variables, it is reasonable to assume that the function will be a composition of 'x0' and 'x1' that results in a quantity with units 'Force'.
+
+The domain of the problem is Mechanics, and we are looking for a simple and physically meaningful function. Therefore, it is reasonable to assume that the function will not be overly complex and will not involve any advanced mathematical operations.
+
+The dataset has a relatively small number of data points, and the range of the variables is not extremely large. Therefore, it is reasonable to assume that the function will not be highly non-linear and will not require a large number of binary operators.
+
+Taking all of these factors into account, I propose the following constraints:
+
+* The function should be a composition of 'x0' and 'x1' that results in a quantity with units 'Force'.
+* The function should be simple and physically meaningful.
+* The function should not be overly complex and should not require a large number of binary operators.
+* The function should not involve any advanced mathematical operations.
+
+### Proposed Function Ansatz
+
+[x0 * x1^2]

@@ -1,0 +1,27 @@
+### JSON Output Structure:
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 8,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the provided dataset and the field of Mechanics, we can propose the following constraints:
+
+* The target function should be physically meaningful and describe a relationship between the given input variables and the output.
+* Since the dataset represents a relationship between variables with units, the proposed function should also have a physically meaningful unit.
+* The function should not contain any dimensionless or unitless variables, as it would contradict the given units.
+* We should avoid using binary operators that could potentially change the dimension of the variables, such as exponentiation (^) or logarithm (log).
+* Since the dataset is relatively complex, we can propose a moderate maximum depth for the equation's expression tree.
+
+These constraints follow from the domain expertise in Mechanics and should guide the search for the correct function.
+
+### Proposed Function Ansatz
+
+Based on the given dataset and the proposed constraints, a reasonable function ansatz that could capture the dependency between the dataset and the target is:
+
+['x0 * x1']

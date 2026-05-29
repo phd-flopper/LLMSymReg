@@ -1,0 +1,22 @@
+```json
+{
+  "maxsize": 10,
+  "maxdepth": 5,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos"]
+}
+```
+
+### CONSTRAINTS
+
+Since we are studying the field of Optics and wave phenomena, we can expect that the target function relates to the interaction between waves and perhaps their frequency. Given the dataset and the fact that `y_units` is measured in 'Frequency' (1/s), we can expect that the target function is related to one of the `variables` (x0, x1, x2) that also relates to frequency. `x_units` contains 'Frequency': ['1 / s'] which matches our expectation.
+
+Another constraint we can deduce is that the equation should not be overly complex. This is because the relationship between the variables and the target function might be simple and we don't want to overfit the model.
+
+We will also not use the 'log', 'exp', 'sqrt' functions as they do not have a clear physical meaning in this context and applying them to physical quantities would change the dimension, which is physically meaningless.
+
+We will not use the '^' operator as it is not clearly defined for physical quantities and might lead to non-physical results.
+
+### Proposed Function Ansatz
+
+['x0 * x1 / (1 + sin(x2))']

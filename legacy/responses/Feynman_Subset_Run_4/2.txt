@@ -1,0 +1,23 @@
+```json
+{
+  "maxsize": 15,
+  "maxdepth": 5,
+  "binary_operators": ["+", "-", "*", "/"],
+  "unary_operators": ["sin", "cos", "exp"]
+}
+```
+
+### CONSTRAINTS
+
+Based on the domain expertise in the field of electromagnetism and the given dataset, we can propose the following constraints:
+
+* The target function is expected to be a physical law that relates the input variables to the output variable, which represents a force.
+* The input variables are likely to be related to electric permittivity, charge, length, and possibly other physical quantities that are relevant in electromagnetism.
+* The target function is likely to involve some form of combination of the input variables, possibly including trigonometric functions, exponential functions, or logarithmic functions.
+* The binary operators should not include exponentiation (`^`) as it can lead to non-physically meaningful results when applied to physical quantities.
+* The unary operators should not include the square root function (`sqrt`) as it can lead to non-real values when applied to negative quantities, which is not physically meaningful in this context.
+* The dataset suggests that the target function may have a range of values from approximately 0 to 1, which may indicate that the target function is a dimensionless quantity or a quantity with units of force.
+
+### ANSATZ
+
+['x0 * x1 * x2 / x3']
